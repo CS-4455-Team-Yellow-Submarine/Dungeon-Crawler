@@ -1,0 +1,13 @@
+Credits for third party assets where acknowledgement is due.
+All assets listed in the order of:
+
+* Asset Name or Brief Description
+Publisher
+Asset Store Link
+Additional Information (if any)
+
+
+* Lava Flowing Shader
+Moonflower Carnivore
+https://assetstore.unity.com/packages/vfx/shaders/lava-flowing-shader-33635
+Used for realistic lava tiles
