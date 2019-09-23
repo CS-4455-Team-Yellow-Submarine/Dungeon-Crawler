@@ -7,7 +7,7 @@ public enum CHARACTER_TYPE{Player, Monster, NPC};
 // Teams
 public enum CHARACTER_TEAM{Friendly, Neutral, Hostile};
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
 	public int health = 100;
 	int ticksInvulnerable = 0; // Used to check if character can take damage again or not
@@ -15,13 +15,13 @@ public class Character : MonoBehaviour
 	protected bool isDead = false;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         // Default initializations
     }
 
 	// Update called every tick
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
 		// Should we handle the dead state?
 		if(isDead) HandleDeadState();
@@ -33,11 +33,10 @@ public class Character : MonoBehaviour
 	// Function to take damage
 	// amount: Amount of damage to take
 	// cooldown: ticks until the character can take damage again. Default 5 ticks (0.1 seconds)
-	public void TakeDamage(int amount, int cooldown=5){
+	public void TakeDamage(int amount){
 		if(ticksInvulnerable > 0 || amount == 0) return;
 		// Now we can take damage
 		health -= amount;
-		ticksInvulnerable = cooldown;
 		tookDamage = true;
 	}
 

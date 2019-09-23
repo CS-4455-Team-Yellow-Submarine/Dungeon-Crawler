@@ -14,7 +14,7 @@ public abstract class Ground : MonoBehaviour
     }
 
     // Update is called once per frame
-	protected void Update()
+	protected void FixedUpdate()
     {
         
     }
