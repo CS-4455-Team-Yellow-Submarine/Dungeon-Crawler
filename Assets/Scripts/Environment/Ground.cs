@@ -18,4 +18,6 @@ public abstract class Ground : MonoBehaviour
     {
         
     }
+
+	public abstract GROUND_TYPE GetGroundType();
 }

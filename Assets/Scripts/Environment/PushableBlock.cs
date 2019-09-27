@@ -28,6 +28,10 @@ public class PushableBlock : Interactable
 				interactionDisabled = false;
 			}
 		}
+		if(ticksUntilInteractionsAllowed == 0){
+			if(GetComponent<Rigidbody>().velocity.y == 0f)
+				GetComponent<Rigidbody>().isKinematic = true;
+		}
     }
 
 	// Block should be pushed by player
@@ -49,5 +53,6 @@ public class PushableBlock : Interactable
 		pushVector = pushDir / INTERACTION_TIME;
 		interactionDisabled = true;
 		ticksUntilInteractionsAllowed = INTERACTION_TIME;
+		GetComponent<Rigidbody>().isKinematic = false;
 	}
 }

@@ -34,7 +34,7 @@ public class PlayerCharacter : Character
 		Vector3 vel = rb.velocity;
 		if (Input.GetKeyDown("space") && ticks_until_jump == 0)
 		{
-			vel.y = 4f;
+			vel.y = 6f;
 			ticks_until_jump = JUMP_COOLDOWN;
 		}
 		vel.x = h;

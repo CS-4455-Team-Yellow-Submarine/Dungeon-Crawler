@@ -63,4 +63,8 @@ public class Lava : Ground
 		c.TakeDamage(DAMAGE_INFLICTED);
 		attack_cooldown = ATTACK_RATE;
 	}
+
+	override public GROUND_TYPE GetGroundType(){
+		return GROUND_TYPE.Lava;
+	}
 }
