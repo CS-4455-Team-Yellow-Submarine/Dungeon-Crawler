@@ -19,6 +19,9 @@ public class ConeCollider : MonoBehaviour {
 	[SerializeField]
 	private float m_height = 0f;
 
+	private MeshCollider meshCollider;
+	new public bool enabled{ get; set; }
+
     void Awake()
     {
         //リソースロード
@@ -60,7 +63,7 @@ public class ConeCollider : MonoBehaviour {
         m_mesh.vertices = vertices;
         m_mesh.triangles = triangles;
 
-        MeshCollider meshCollider = this.gameObject.AddComponent<MeshCollider>();
+        meshCollider = this.gameObject.AddComponent<MeshCollider>();
         meshCollider.sharedMesh = m_mesh;
         meshCollider.convex = true;
         meshCollider.isTrigger = m_isTrigger;
@@ -95,7 +98,7 @@ public class ConeCollider : MonoBehaviour {
     }
 
     private void Update() {
-
+		meshCollider.enabled = this.enabled;
     }
 
     GameObject DebugObject(Vector3 pos, float scale = 1.0f, string name = "Sphere")

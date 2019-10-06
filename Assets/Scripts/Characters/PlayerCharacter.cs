@@ -11,8 +11,6 @@ public class PlayerCharacter : Character
 	// List of things in range that can be interacted with
 	private List<Interactable> objectsInRange;
 
-	private Rigidbody rb; // Character body
-
     // Start is called before the first frame update
     new void Start()
     {

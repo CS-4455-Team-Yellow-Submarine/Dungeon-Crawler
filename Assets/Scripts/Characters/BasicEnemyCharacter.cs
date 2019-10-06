@@ -8,12 +8,20 @@ public class BasicEnemyCharacter : Character
 	// Private controllers
 	private Animator anim;
 	private ConeCollider visionRange;
-	private CapsuleCollider attackRange;
+	private CapsuleCollider attackCollider;
 
 	// Other variables
 	private FSM stateMachine;
 	private List<Vector3> checkpoints;
 	private List<int> ticksToReach;
+	public int lastCheckpoint { get; set; }
+
+	// Character specific
+	public float moveSpeed;
+	public bool playerInRange;
+	public float attackDelay = 1f; // How much time before the attack animation should start
+	public float attackCooldown = 4f; // How much time before we can attack again
+	public float attackRange = 1.2f; // How far ahead we can attack
 
 	// Start is called before the first frame update
 	new void Start()
@@ -26,11 +34,13 @@ public class BasicEnemyCharacter : Character
 		visionRange = GetComponent<ConeCollider>();
 		if(visionRange == null)
 			Debug.Log("Could not find cone collider");
-		attackRange = GetComponent<CapsuleCollider>();
-		if(attackRange == null)
+		attackCollider = GetComponent<CapsuleCollider>();
+		if(attackCollider == null)
 			Debug.Log("Could not find capsule collider");
+		// Set the attack capsule's range
+		attackCollider.radius = attackRange;
 		// Currently not attacking
-		attackRange.enabled = false;
+		attackCollider.enabled = false;
 		visionRange.enabled = true;
 
 		// Init list of checkpoints
@@ -68,7 +78,73 @@ public class BasicEnemyCharacter : Character
     }
 
 	void OnTriggerEnter(Collider col){
-		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.tag.Equals("Character"))
-			Debug.Log("Entered range of some collider");
+		// Check if player is in vision range
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+			// Determine which state we should change to
+			if(stateMachine.GetStateName().Equals("Patrol") || stateMachine.GetStateName().Equals("Return")){
+				visionRange.enabled = false;
+				attackCollider.enabled = true;
+				// Change to chase state
+				State_Chase state = new State_Chase(this);
+				state.SetAnimator(anim);
+				state.SetSpeed(moveSpeed);
+				state.SetChaseTarget(col.attachedRigidbody.gameObject);
+
+				stateMachine.SetState(state);
+				return;
+			}
+			else if(stateMachine.GetStateName().Equals("Chase")){
+				playerInRange = true;
+				// Change to attack state
+				State_Attack state = new State_Attack(this);
+				state.SetAnimator(anim);
+				state.SetTarget(transform.position + (col.attachedRigidbody.gameObject.transform.position - transform.position).normalized * attackRange);
+				state.SetAttackDelay(attackDelay);
+				state.SetAttackCooldown(attackCooldown);
+				state.SetProjectile(projectile, attackDamage);
+
+				stateMachine.SetState(state);
+			}
+		}
+	}
+
+	/*
+	void OnTriggerStay(Collider col){
+		// Check if it was the player
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+			// Check the state
+			if(stateMachine.GetStateName().Equals("Attack") || stateMachine.GetStateName().Equals("Chase")){
+				playerInRange = true;
+				// Change to attack state if we're not already there
+				if(!stateMachine.GetStateName().Equals("Attack")){
+					State_Attack state = new State_Attack(this);
+					state.SetAnimator(anim);
+					state.SetTarget(transform.position + (col.attachedRigidbody.gameObject.transform.position - transform.position).normalized * attackRange);
+					state.SetAttackDelay(attackDelay);
+					state.SetAttackCooldown(attackCooldown);
+					state.SetProjectile(projectile, attackDamage);
+
+					stateMachine.SetState(state);
+				}
+			}
+		}
+	}
+	*/
+
+	void OnTriggerExit(Collider col){
+		// Check if it was the player
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+			// Check the state
+			if(stateMachine.GetStateName().Equals("Attack")){
+				playerInRange = false;
+				// Change to chase state
+				State_Chase state = new State_Chase(this);
+				state.SetAnimator(anim);
+				state.SetSpeed(moveSpeed);
+				state.SetChaseTarget(col.attachedRigidbody.gameObject);
+
+				stateMachine.SetState(state);
+			}
+		}
 	}
 }

@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Wall
   - Interactive
+  - Bullet
   layers:
   - Default
   - TransparentFX

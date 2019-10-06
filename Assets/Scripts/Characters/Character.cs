@@ -7,17 +7,24 @@ public enum CHARACTER_TYPE{Player, Monster, NPC};
 // Teams
 public enum CHARACTER_TEAM{Friendly, Neutral, Hostile};
 
+[RequireComponent(typeof(Rigidbody))]
 public abstract class Character : MonoBehaviour
 {
 	public int health = 100;
+	public int attackDamage = 10;
 	int ticksInvulnerable = 0; // Used to check if character can take damage again or not
 	protected bool tookDamage = false;
 	protected bool isDead = false;
+	protected Rigidbody rb; // Character body
+	public GameObject projectile;
 
     // Start is called before the first frame update
     protected void Start()
     {
-        // Default initializations
+		// Get the rigidbody attached to this
+		rb = GetComponent<Rigidbody>();
+		if (rb == null)
+			Debug.Log("Rigidbody could not be found!");
     }
 
 	// Update called every tick
@@ -43,10 +50,11 @@ public abstract class Character : MonoBehaviour
 	// Function to handle when damage is taken
 	protected void HandleDamageTaken(){
 		// Should we die?
-		if(health < 0)
+		if(health <= 0)
 			isDead = true;
 		// Any other things to handle
-		//Debug.Log("I took damage! Health remaining: " + health);
+		Debug.Log(name + " took damage! Health remaining: " + health);
+		tookDamage = false;
 	}
 
 	// Function to handle when we die
@@ -63,4 +71,5 @@ public abstract class Character : MonoBehaviour
 	public Vector3 GetPosition(){ return transform.position; }
 	public Quaternion GetRotation(){ return transform.rotation; }
 	public void SetRotation(Quaternion q){ transform.rotation = q; }
+	public GameObject GetGameObject(){ return gameObject; }
 }

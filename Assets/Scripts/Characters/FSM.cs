@@ -10,6 +10,8 @@ public interface FSM_State{
 	void Execute();
 	// Called when a state is terminated
 	void End();
+	// Called when we want to name the current state
+	string ToString();
 }
 
 public class FSM{
@@ -31,6 +33,16 @@ public class FSM{
 	public void Update(){
 		if(currentState != null)
 			currentState.Execute();
+	}
+
+	public FSM_State GetState(){
+		return currentState;
+	}
+
+	public string GetStateName(){
+		if(currentState != null)
+			return currentState.ToString();
+		return "None";
 	}
 }
 
@@ -80,7 +92,7 @@ public class State_Patrol : FSM_State{
 	}
 
 	public void End(){
-		
+		enemy.lastCheckpoint = currentCheckpoint;
 	}
 
 	public void SetPatrolPoints(List<Vector3> points, List<int> ticks){
@@ -92,6 +104,115 @@ public class State_Patrol : FSM_State{
 	public void SetAnimator(Animator an){
 		this.anim = an;
 	}
+
+	override public string ToString(){ return "Patrol"; }
+}
+
+public class State_Chase : FSM_State{
+	private BasicEnemyCharacter enemy;
+	private Animator anim;
+	private GameObject target;
+	private float moveSpeed;
+	private Vector3 moveVec;
+
+	public State_Chase(BasicEnemyCharacter ch){
+		this.enemy = ch;
+	}
+
+	public void SetChaseTarget(GameObject o){
+		target = o;
+	}
+
+	public void SetSpeed(float f){
+		moveSpeed = f;
+	}
+
+	public void SetAnimator(Animator an){
+		this.anim = an;
+	}
+
+	public void Start(){
+	}
+
+	public void Execute(){
+		// Chase after the player
+		moveVec = (target.transform.position - enemy.GetPosition()).normalized;
+		enemy.SetRotation(Quaternion.LookRotation(moveVec));
+		enemy.HandleMove(moveVec * moveSpeed / 50f);
+		anim.SetFloat("velocity", 0.6f);
+	}
+
+	public void End(){
+	}
+
+	override public string ToString(){ return "Chase"; }
+}
+
+
+public class State_Attack : FSM_State{
+	private BasicEnemyCharacter enemy;
+	private Animator anim;
+	private Vector3 target;
+	private Vector3 moveVec;
+	private int attackDelay, attackCooldown; // Measured in game ticks!
+	private GameObject bullet;
+	private int damage;
+	private float speed;
+
+	public State_Attack(BasicEnemyCharacter ch){
+		this.enemy = ch;
+	}
+
+	public void SetTarget(Vector3 dst){
+		target = dst;
+	}
+
+	public void SetAnimator(Animator an){
+		this.anim = an;
+	}
+
+	public void SetAttackDelay(float delay){
+		attackDelay = (int)(50f * delay);
+	}
+
+	public void SetAttackCooldown(float cooldown){
+		attackCooldown = (int)(50f * cooldown);
+	}
+
+	public void SetProjectile(GameObject o, int dmg = 10, float spd = 0f){
+		bullet = o;
+		damage = dmg;
+		speed = spd;
+	}
+
+	public void Start(){
+	}
+
+	public void Execute(){
+		// Can we attack?
+		if(attackDelay > 0){
+			--attackDelay;
+			anim.SetBool("isAttacking", false);
+			anim.SetFloat("velocity", 0f);
+		}
+		else if(attackDelay == 0){
+			// Indicate an attack
+			anim.SetBool("isAttacking", true);
+			// Put attack on cooldown
+			attackDelay = attackCooldown;
+			// Fire a projectile as necessary
+			GameObject obj = Object.Instantiate(bullet) as GameObject;
+			obj.transform.parent = enemy.GetGameObject().transform;
+			Projectile pr = obj.GetComponent<Projectile>();
+			// Associate definitions with the projectile
+			pr.Define(enemy.GetComponent<Rigidbody>(), enemy.transform.position, target, damage, speed);
+		}
+	}
+
+	public void End(){
+	}
+
+	override public string ToString(){ return "Attack"; }
 }
 
 // End state definitions
