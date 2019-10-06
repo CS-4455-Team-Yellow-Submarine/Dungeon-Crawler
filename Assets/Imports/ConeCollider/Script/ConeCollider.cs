@@ -16,6 +16,8 @@ public class ConeCollider : MonoBehaviour {
     private Vector3 m_localScale;
     [SerializeField]
     private bool m_isFixScale = true;
+	[SerializeField]
+	private float m_height = 0f;
 
     void Awake()
     {
@@ -31,13 +33,14 @@ public class ConeCollider : MonoBehaviour {
         var vertices = coneMesh.vertices;
         var triangles = coneMesh.triangles;        
         var forward = this.transform.TransformDirection(Vector3.forward);
-        var centerForwardPos = this.transform.position + forward * m_distance;
+		var centerForwardPos = this.transform.position + forward * m_distance + Vector3.up * m_height;
         var harf = m_distance * Mathf.Tan(m_angle * Mathf.PI / 180f);
         var verticleCount = 0;
 
         //コーン円状部分のみ頂点座標移動
         for (int i = 0; i < vertices.Length; i++) {
-            var verticeWorldPos = vertices[i] + this.transform.position;
+			vertices[i] = vertices[i] + Vector3.up * m_height;
+			var verticeWorldPos = vertices[i] + this.transform.position;
             if (verticleCount != 2 || i >= 36) {
                 //既に距離1分あるので-1
                 verticeWorldPos += forward * (m_distance - 1);
@@ -88,7 +91,7 @@ public class ConeCollider : MonoBehaviour {
     }
 
     private void Start() {
-
+		
     }
 
     private void Update() {
@@ -99,7 +102,7 @@ public class ConeCollider : MonoBehaviour {
     {
         //デバッグ
         var obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        obj.transform.position = pos;
+        obj.transform.position = pos + Vector3.up * m_height;
         obj.transform.localScale = new Vector3(scale, scale, scale);
         obj.name = name;
         return obj;
@@ -116,9 +119,11 @@ public class ConeColliderEditor : Editor {
     private SerializedProperty m_distance;
     private SerializedProperty m_isTrigger;
     private SerializedProperty m_isFixScale;
+	private SerializedProperty m_height;
     private ConeCollider m_conecollider;
 
     void OnEnable() {
+		SetProperty(ref m_height, "m_height");
         SetProperty(ref m_angle, "m_angle");
         SetProperty(ref m_distance, "m_distance");
         SetProperty(ref m_isTrigger, "m_isTrigger");
@@ -129,6 +134,7 @@ public class ConeColliderEditor : Editor {
     public override void OnInspectorGUI() {
         serializedObject.Update();
         {
+			DrawPropertyField(m_height, "Height");
             DrawPropertyField(m_angle, "Angle");
             DrawPropertyField(m_distance, "Distance");
             DrawPropertyField(m_isTrigger, "isTrigger");
@@ -140,17 +146,17 @@ public class ConeColliderEditor : Editor {
     void OnSceneGUI() {
         if (!EditorApplication.isPlaying) {
             m_distance.floatValue = m_distance.floatValue < 1.0f ? 1.0f : m_distance.floatValue;
-            var centerForward = m_conecollider.transform.position + m_conecollider.transform.TransformDirection(Vector3.forward) * m_distance.floatValue;
+            var centerForward = m_conecollider.transform.position + Vector3.up * m_height.floatValue + m_conecollider.transform.TransformDirection(Vector3.forward) * m_distance.floatValue;
             var harf = m_distance.floatValue * Mathf.Tan(m_angle.floatValue * Mathf.PI / 180f);
             var up = centerForward + m_conecollider.transform.TransformDirection(Vector3.up) * harf;
             var down = centerForward + m_conecollider.transform.TransformDirection(Vector3.down) * harf;
             var right = centerForward + m_conecollider.transform.TransformDirection(Vector3.right) * harf;
             var left = centerForward + m_conecollider.transform.TransformDirection(Vector3.left) * harf;
             Handles.color = new Color(0.53f, 0.82f, 0.5f);
-            Handles.DrawLine(m_conecollider.transform.position, up);
-            Handles.DrawLine(m_conecollider.transform.position, down);
-            Handles.DrawLine(m_conecollider.transform.position, right);
-            Handles.DrawLine(m_conecollider.transform.position, left);
+			Handles.DrawLine(m_conecollider.transform.position + Vector3.up * m_height.floatValue, up);
+			Handles.DrawLine(m_conecollider.transform.position + Vector3.up * m_height.floatValue, down);
+			Handles.DrawLine(m_conecollider.transform.position + Vector3.up * m_height.floatValue, right);
+			Handles.DrawLine(m_conecollider.transform.position + Vector3.up * m_height.floatValue, left);
             Handles.CircleHandleCap(0, centerForward, m_conecollider.transform.rotation, harf, EventType.Repaint);
             Handles.color = Color.white;
         }

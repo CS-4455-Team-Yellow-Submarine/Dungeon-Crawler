@@ -6,7 +6,6 @@ public class MovableBlock : Ground
 {
 	private int numCheckpoints;
 	private int currentCheckpoint;
-	private int ticksLeftToMove;
 	private int ticksLeft;
 	private Vector3 moveVec;
 	private List<Vector3> checkpoints;
@@ -22,9 +21,9 @@ public class MovableBlock : Ground
 		// Init list of checkpoints
 		checkpoints = new List<Vector3>();
 		ticksToReach = new List<int>();
-		currentCheckpoint = 0;
 		numCheckpoints = 0;
 		ticksLeft = 0;
+		currentCheckpoint = 0;
       	// Get the list of checkpoints
 		Transform movingPoints = transform.Find("Movepoints").gameObject.transform;
 		int numChildren = movingPoints.childCount;

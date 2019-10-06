@@ -54,4 +54,13 @@ public abstract class Character : MonoBehaviour
 		//Debug.Log("I am dead");
 		Destroy(this.gameObject);
 	}
+
+	// Function to handle moving a certain amount
+	public void HandleMove(Vector3 movement){
+		transform.position = transform.position + movement;
+	}
+
+	public Vector3 GetPosition(){ return transform.position; }
+	public Quaternion GetRotation(){ return transform.rotation; }
+	public void SetRotation(Quaternion q){ transform.rotation = q; }
 }

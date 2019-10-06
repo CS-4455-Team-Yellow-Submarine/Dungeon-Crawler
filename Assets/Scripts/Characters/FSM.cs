@@ -1,0 +1,101 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// Finite state machine basic definitions
+public interface FSM_State{
+	// Called when a state is entered
+	void Start();
+	// Called when a state is executing
+	void Execute();
+	// Called when a state is terminated
+	void End();
+}
+
+public class FSM{
+	// Current state
+	FSM_State currentState;
+
+	public FSM(){
+		currentState = null;
+	}
+
+	public void SetState(FSM_State state){
+		if(currentState != null)
+			currentState.End();
+		
+		currentState = state;
+		currentState.Start();
+	}
+
+	public void Update(){
+		if(currentState != null)
+			currentState.Execute();
+	}
+}
+
+// End finite state machine basic definitions
+
+// *****
+// State machine states defined here
+// *****
+
+public class State_Patrol : FSM_State{
+	private BasicEnemyCharacter enemy;
+	private Animator anim;
+	private List<Vector3> checkpoints;
+	private List<int> ticksToReach;
+	private int ticksLeft;
+	private Vector3 moveVec;
+	private int numCheckpoints;
+	public int currentCheckpoint { get; set; }
+
+	public State_Patrol(BasicEnemyCharacter ch){
+		this.enemy = ch;
+	}
+
+	public void Start(){
+		ticksLeft = 0;
+	}
+
+	public void Execute(){
+		// Check if we should go to next checkpoint
+		if(ticksLeft == 0){
+			currentCheckpoint = (currentCheckpoint + 1) % numCheckpoints;
+			moveVec = (checkpoints[currentCheckpoint] - enemy.GetPosition()) / ticksToReach[currentCheckpoint];
+			ticksLeft = ticksToReach[currentCheckpoint];
+			if(moveVec.magnitude > 0.02f){
+				Quaternion quat = Quaternion.LookRotation(moveVec.normalized);
+				enemy.SetRotation(quat);
+			}
+		}
+		// Move
+		--ticksLeft;
+		enemy.HandleMove(moveVec);
+		// Set the animation accordingly
+		if(moveVec.magnitude < 0.02f)
+			anim.SetFloat("velocity", 0f);
+		else
+			anim.SetFloat("velocity", 1f);
+	}
+
+	public void End(){
+		
+	}
+
+	public void SetPatrolPoints(List<Vector3> points, List<int> ticks){
+		checkpoints = points;
+		ticksToReach = ticks;
+		numCheckpoints = points.Count;
+	}
+
+	public void SetAnimator(Animator an){
+		this.anim = an;
+	}
+}
+
+// End state definitions
+
+// *****
+// Specific state machines defined here
+// *****
