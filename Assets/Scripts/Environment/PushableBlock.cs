@@ -35,7 +35,7 @@ public class PushableBlock : Interactable
     }
 
 	// Block should be pushed by player
-	override public void OnInteraction(){
+	override public void OnInteraction(GameObject player){
 		if(interactionDisabled) return;
 		// Get pushed
 		Vector3 relativePosition = transform.position - player.transform.position;
@@ -51,6 +51,13 @@ public class PushableBlock : Interactable
 		}
 		// Note that block is 2x2x2; move it 1 unit
 		pushVector = pushDir / INTERACTION_TIME;
+		// Check if there's an obstacle at the desired location. Don't do anything if there is.
+		/*gameObject.SetActive(false);
+		if(Physics.CheckSphere(transform.position + pushVector, 0.1f)){
+			gameObject.SetActive(true);
+			return;
+		}
+		gameObject.SetActive(true);*/
 		interactionDisabled = true;
 		ticksUntilInteractionsAllowed = INTERACTION_TIME;
 		GetComponent<Rigidbody>().isKinematic = false;

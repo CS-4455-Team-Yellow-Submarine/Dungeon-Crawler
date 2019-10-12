@@ -98,10 +98,10 @@ public class BasicEnemyCharacter : Character
 				// Change to attack state
 				State_Attack state = new State_Attack(this);
 				state.SetAnimator(anim);
-				state.SetTarget(transform.position + (col.attachedRigidbody.gameObject.transform.position - transform.position).normalized * attackRange);
+				state.SetTarget(col.attachedRigidbody.gameObject);
 				state.SetAttackDelay(attackDelay);
 				state.SetAttackCooldown(attackCooldown);
-				state.SetProjectile(projectile, attackDamage);
+				state.SetProjectile(projectile, attackDamage, 0, attackRange);
 
 				stateMachine.SetState(state);
 			}

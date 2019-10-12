@@ -11,6 +11,9 @@ public class PlayerCharacter : Character
 	// List of things in range that can be interacted with
 	private List<Interactable> objectsInRange;
 
+	// Most recent valid tile we stepped on
+	private GameObject lastValidTile;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -32,7 +35,7 @@ public class PlayerCharacter : Character
 		Vector3 vel = rb.velocity;
 		if (Input.GetKeyDown("space") && ticks_until_jump == 0)
 		{
-			vel.y = 6f;
+			vel.y = Physics.gravity.y * -0.5f;
 			ticks_until_jump = JUMP_COOLDOWN;
 		}
 		vel.x = h;
@@ -44,7 +47,7 @@ public class PlayerCharacter : Character
 			// Interact with the first object in list (if any)
 			if(objectsInRange.Count > 0){
 				//Debug.Log("Interacting with " + objectsInRange[0].name);
-				objectsInRange[0].OnInteraction();
+				objectsInRange[0].OnInteraction(this.gameObject);
 			}
 		}
 	}
@@ -58,5 +61,16 @@ public class PlayerCharacter : Character
 	public void RemoveFromPlayerRange(Interactable obj){
 		//Debug.Log("Removed " + obj.name + " from list");
 		objectsInRange.Remove(obj);
+	}
+
+	public void SetLastValidTile(GameObject obj){ 
+		lastValidTile = obj;
+	}
+
+	// Fell off the map or something, take damage and return to last valid tile
+	public void ReturnToLastValidTile(){
+		transform.position = lastValidTile.transform.position + Vector3.up;
+		int damageToTake = health / 5; // Lose 20% of Health
+		TakeDamage(damageToTake);
 	}
 }

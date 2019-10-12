@@ -4,9 +4,6 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-	// Should only be interacted by the player
-	public GameObject player;
-
     // Start is called before the first frame update
     protected void Start()
     {
@@ -24,7 +21,7 @@ public abstract class Interactable : MonoBehaviour
 		// Get the game object associated with this if it exists
 		if(col.attachedRigidbody == null) return;
 		GameObject obj = col.attachedRigidbody.gameObject;
-		if(obj.name == player.name){
+		if(obj.name.Equals("Player")){
 			Component[] comps = obj.GetComponents(typeof(Component)) as Component[];
 			PlayerCharacter player = null;
 			// Need to cast types since the thing being damaged is a derived class
@@ -41,7 +38,7 @@ public abstract class Interactable : MonoBehaviour
 		// Get the game object associated with this if it exists
 		if(col.attachedRigidbody == null) return;
 		GameObject obj = col.attachedRigidbody.gameObject;
-		if(obj.name == player.name){
+		if(obj.name.Equals("Player")){
 			Component[] comps = obj.GetComponents(typeof(Component)) as Component[];
 			PlayerCharacter player = null;
 			// Need to cast types since the thing being damaged is a derived class
@@ -53,5 +50,5 @@ public abstract class Interactable : MonoBehaviour
 		}
 	}
 
-	public abstract void OnInteraction();
+	public abstract void OnInteraction(GameObject player);
 }

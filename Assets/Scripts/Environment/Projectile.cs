@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Definitions for a projectile
+public enum ELEMENT{None = 0, Fire = 1, Water = 2};
+
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
 	protected Rigidbody rb;
 	protected Rigidbody who; // Who attacked
-	protected Vector3 source, target; // Attack from, to positions
+	protected Vector3 source; // Attack from position
+	protected GameObject target; // Attack target
 	protected float moveSpeed; // How fast this thing moves
 	protected int moveTime;
 	protected Vector3 moveVec;
-	protected int damage = 10; // How much damage can we inflict
+	public ELEMENT element = ELEMENT.None;
+	public int damage = 10; // How much damage can we inflict
+	protected float attackRange; // How far the projectile can fly, only relevant for melee attacks
 
     // Start is called before the first frame update
     void Start()
@@ -24,19 +29,22 @@ public class Projectile : MonoBehaviour
     }
 
 	// Instantiations for the projectile
-	public void Define(Rigidbody rigidbody, Vector3 src, Vector3 dst, int dmg = 10, float spd = 0f){
+	public void Define(Rigidbody rigidbody, Vector3 src, GameObject dst, float spd = 0f, float range = 1.2f){
 		who = rigidbody;
 		transform.position = src;
 		source = src;
 		target = dst;
 		moveSpeed = spd;
-		damage = dmg;
+		attackRange = range;
 		// Melee or ranged projectile?
 		if(moveSpeed < 0.001f)
-			moveTime = 25; // Melee, just have it hit target after 0.5 seconds
+			moveTime = 40; // Melee, just have it hit target after 0.8 seconds
 		else // Otherwise, calculate how long it'll take to reach target (for destruction)
-			moveTime = (int)((target - source).magnitude / moveSpeed * 50f);
-		moveVec = (target - source) / moveTime;
+			moveTime = (int)((target.transform.position - source).magnitude / moveSpeed * 50f);
+		moveVec = (target.transform.position - source) / moveTime;
+		if(moveSpeed < 0.001f){
+			moveVec = moveVec.normalized * attackRange;
+		}
 		// Ignore collisions between this projectile and the source
 		Physics.IgnoreCollision(who.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 	}

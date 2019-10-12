@@ -152,18 +152,19 @@ public class State_Chase : FSM_State{
 public class State_Attack : FSM_State{
 	private BasicEnemyCharacter enemy;
 	private Animator anim;
-	private Vector3 target;
+	private GameObject target;
 	private Vector3 moveVec;
 	private int attackDelay, attackCooldown; // Measured in game ticks!
 	private GameObject bullet;
 	private int damage;
 	private float speed;
+	private float distance;
 
 	public State_Attack(BasicEnemyCharacter ch){
 		this.enemy = ch;
 	}
 
-	public void SetTarget(Vector3 dst){
+	public void SetTarget(GameObject dst){
 		target = dst;
 	}
 
@@ -179,10 +180,11 @@ public class State_Attack : FSM_State{
 		attackCooldown = (int)(50f * cooldown);
 	}
 
-	public void SetProjectile(GameObject o, int dmg = 10, float spd = 0f){
+	public void SetProjectile(GameObject o, int dmg = 10, float spd = 0f, float far = 1.2f){
 		bullet = o;
 		damage = dmg;
 		speed = spd;
+		distance = far;
 	}
 
 	public void Start(){
@@ -205,7 +207,7 @@ public class State_Attack : FSM_State{
 			obj.transform.parent = enemy.GetGameObject().transform;
 			Projectile pr = obj.GetComponent<Projectile>();
 			// Associate definitions with the projectile
-			pr.Define(enemy.GetComponent<Rigidbody>(), enemy.transform.position, target, damage, speed);
+			pr.Define(enemy.GetComponent<Rigidbody>(), enemy.transform.position, target, speed, distance);
 		}
 	}
 

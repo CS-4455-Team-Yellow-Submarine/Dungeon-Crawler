@@ -68,6 +68,7 @@ public class MovableBlock : Ground
 	// Add anything staying on top of this platform to list of items to move
 	void OnTriggerStay(Collider col){
 		GameObject obj = col.gameObject;
+		if(!(obj.tag.Equals("Character") || obj.tag.Equals("Interactive"))) return;
 		int index = itemsToMove.IndexOf(obj);
 		if(index == -1){
 			itemsToMove.Add(obj);
@@ -79,6 +80,7 @@ public class MovableBlock : Ground
 
 	void OnTriggerExit(Collider col){
 		GameObject obj = col.gameObject;
+		if(!(obj.tag.Equals("Character") || obj.tag.Equals("Interactive"))) return;
 		int index = itemsToMove.IndexOf(obj);
 		if(index == -1)
 			return;
