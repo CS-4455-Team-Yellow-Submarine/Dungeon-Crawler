@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour
 	protected bool isDead = false;
 	protected Rigidbody rb; // Character body
 	public GameObject projectile;
+	protected int maxHealth;
 
     // Start is called before the first frame update
     protected void Start()
@@ -25,6 +26,8 @@ public abstract class Character : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		if (rb == null)
 			Debug.Log("Rigidbody could not be found!");
+		// Update the max health
+		maxHealth = this.health;
     }
 
 	// Update called every tick
@@ -61,6 +64,34 @@ public abstract class Character : MonoBehaviour
 	protected void HandleDeadState(){
 		//Debug.Log("I am dead");
 		Destroy(this.gameObject);
+	}
+
+	// Function to handle a heal
+	public void HealCharacter(int amount){
+		if(amount < 0) return; // Can't heal a negative number
+		// Make sure we don't heal to more than max
+		health += amount;
+		if(health > maxHealth)
+			health = maxHealth;
+	}
+
+	// Functions to increase max health
+	public void ChangeMaxHealthBy(int amount){
+		// Maintain the same percentage of health
+		float percentHealth = float(health) / float(maxHealth);
+		maxHealth += amount;
+		if(maxHealth < 1) maxHealth = 1;
+		health = int(percentHealth * maxHealth);
+		if(health < 1) health = 1;
+	}
+
+	public void ChangeMaxHealthTo(int amount){
+		// Maintain the same percentage of health
+		float percentHealth = float(health) / float(maxHealth);
+		if(amount < 1) amount = 1;
+		maxHealth = 1;
+		health = int(percentHealth * maxHealth);
+		if(health < 1) health = 1;
 	}
 
 	// Function to handle moving a certain amount
