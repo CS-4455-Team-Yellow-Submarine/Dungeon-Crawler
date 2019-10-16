@@ -78,19 +78,19 @@ public abstract class Character : MonoBehaviour
 	// Functions to increase max health
 	public void ChangeMaxHealthBy(int amount){
 		// Maintain the same percentage of health
-		float percentHealth = float(health) / float(maxHealth);
+		float percentHealth = (float)(health) / (float)(maxHealth);
 		maxHealth += amount;
 		if(maxHealth < 1) maxHealth = 1;
-		health = int(percentHealth * maxHealth);
+		health = (int)(percentHealth * maxHealth);
 		if(health < 1) health = 1;
 	}
 
 	public void ChangeMaxHealthTo(int amount){
 		// Maintain the same percentage of health
-		float percentHealth = float(health) / float(maxHealth);
+		float percentHealth = (float)(health) / (float)(maxHealth);
 		if(amount < 1) amount = 1;
 		maxHealth = 1;
-		health = int(percentHealth * maxHealth);
+		health = (int)(percentHealth * maxHealth);
 		if(health < 1) health = 1;
 	}
 

@@ -29,7 +29,7 @@ public class PushableBlock : Interactable
 			}
 		}
 		if(ticksUntilInteractionsAllowed == 0){
-			if(GetComponent<Rigidbody>().velocity.y == 0f)
+			if(GetComponent<Rigidbody>().velocity.magnitude < 0.001f)
 				GetComponent<Rigidbody>().isKinematic = true;
 		}
     }
