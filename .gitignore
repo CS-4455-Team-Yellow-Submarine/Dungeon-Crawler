@@ -55,5 +55,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+# Platform specific files
+.DS_Store
+*.DS_Store
+
 # Crashlytics generated file
 crashlytics-build.properties
