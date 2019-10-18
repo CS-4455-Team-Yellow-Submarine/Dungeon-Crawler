@@ -18,6 +18,7 @@ public abstract class Character : MonoBehaviour
 	protected Rigidbody rb; // Character body
 	public GameObject projectile;
 	protected int maxHealth;
+	public AudioClip hitSound; // Sound clip to play on taking damage
 
     // Start is called before the first frame update
     protected void Start()
@@ -28,6 +29,9 @@ public abstract class Character : MonoBehaviour
 			Debug.Log("Rigidbody could not be found!");
 		// Update the max health
 		maxHealth = this.health;
+
+		GetComponent<AudioSource>().playOnAwake = false;
+		GetComponent<AudioSource>().clip = hitSound;
     }
 
 	// Update called every tick
@@ -48,6 +52,7 @@ public abstract class Character : MonoBehaviour
 		// Now we can take damage
 		health -= amount;
 		tookDamage = true;
+		GetComponent<AudioSource>().Play();
 	}
 
 	// Function to handle when damage is taken

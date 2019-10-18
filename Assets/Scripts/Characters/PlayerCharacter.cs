@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacter : Character
 {
@@ -14,6 +15,9 @@ public class PlayerCharacter : Character
 	// Most recent valid tile we stepped on
 	private GameObject lastValidTile;
 
+	// Health bar
+	private Slider healthSlider;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -21,6 +25,7 @@ public class PlayerCharacter : Character
 		// Initializations
 		objectsInRange = new List<Interactable>();
 		rb = GetComponent<Rigidbody>();
+		healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -50,6 +55,9 @@ public class PlayerCharacter : Character
 				objectsInRange[0].OnInteraction(this.gameObject);
 			}
 		}
+
+		// Update health bar
+		healthSlider.value = health;
 	}
 
 	// Methods to get something added to or removed from the list of interactables in range
