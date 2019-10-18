@@ -39,6 +39,7 @@ public class BasicEnemyCharacter : Character
 			Debug.Log("Could not find capsule collider");
 		// Set the attack capsule's range
 		attackCollider.radius = attackRange;
+		attackCollider.isTrigger = true;
 		// Currently not attacking
 		attackCollider.enabled = false;
 		visionRange.enabled = true;
