@@ -220,5 +220,169 @@ public class State_Attack : FSM_State{
 // End state definitions
 
 // *****
-// Specific state machines defined here
+// All boss state machines defined here
 // *****
+
+//this state is for boss attack
+public class State_BossAttack : FSM_State
+{
+    private BossEnemyCharacter enemy;
+    private Animator anim;
+    private GameObject target;
+    private Vector3 moveVec;
+    private int attackDelay, attackCooldown; // Measured in game ticks!
+    private GameObject bullet;
+    private int damage;
+    private float speed;
+    private float distance;
+
+    public State_BossAttack(BossEnemyCharacter ch)
+    {
+        this.enemy = ch;
+    }
+
+    public void SetTarget(GameObject dst)
+    {
+        target = dst;
+    }
+
+    public void SetAnimator(Animator an)
+    {
+        this.anim = an;
+    }
+
+    public void SetAttackDelay(float delay)
+    {
+
+        attackDelay = (int)(50f * delay);
+    }
+
+    public void SetAttackCooldown(float cooldown)
+    {
+        attackCooldown = (int)(50f * cooldown);
+    }
+
+    //the boss has higher damage than other enemys
+    public void SetProjectile(GameObject o, int dmg = 15, float spd = 0f, float far = 1.8f)
+    {
+        bullet = o;
+        damage = dmg;
+        speed = spd;
+        distance = far;
+    }
+
+    public void Start()
+    {
+    }
+
+    public void Execute()
+    {
+        // Can we attack?
+        if (attackDelay > 0)
+        {
+            --attackDelay;
+            anim.SetBool("Boss is Attacking", false);
+            anim.SetFloat("Boss velocity", 0f);
+        }
+        else if (attackDelay == 0)
+        {
+            // Indicate an attack
+            anim.SetBool("Boss is Attacking", true);
+            // Put attack on cooldown
+            attackDelay = attackCooldown;
+            // Fire a projectile as necessary
+            GameObject obj = Object.Instantiate(bullet) as GameObject;
+            obj.transform.parent = enemy.GetGameObject().transform;
+            Projectile pr = obj.GetComponent<Projectile>();
+            // Associate definitions with the projectile
+            pr.Define(enemy.GetComponent<Rigidbody>(), enemy.transform.position, target, speed, distance);
+        }
+    }
+
+    public void End()
+    {
+    }
+
+    override public string ToString() { return "Boss Attack"; }
+}
+
+//this state is for boss being Relaxed (
+public class State_BossRelax : FSM_State
+{
+    private BossEnemyCharacter enemy;
+    private Animator anim;
+
+    public State_BossRelax(BossEnemyCharacter ch)
+    {
+        this.enemy = ch;
+    }
+    public void SetAnimator(Animator an)
+    {
+        this.anim = an;
+    }
+    public void Start()
+    {
+    }
+
+    public void Execute()
+    {
+
+    }
+    public void End()
+    {
+    }
+
+    override public string ToString() { return "Boss Relax"; }
+}
+
+//this state is for boss being Chased
+public class State_BossChase : FSM_State
+{
+    private BossEnemyCharacter enemy;
+    private Animator anim;
+    private GameObject target;
+    private float moveSpeed;
+    private Vector3 moveVec;
+
+    public State_BossChase(BossEnemyCharacter ch)
+    {
+        this.enemy = ch;
+    }
+
+    public void SetChaseTarget(GameObject o)
+    {
+        target = o;
+    }
+
+    public void SetSpeed(float f)
+    {
+        moveSpeed = f;
+    }
+
+    public void SetAnimator(Animator an)
+    {
+        this.anim = an;
+    }
+
+    public void Start()
+    {
+    }
+
+    public void Execute()
+    {
+        // Chase after the player
+        moveVec = (target.transform.position - enemy.GetPosition()).normalized;
+        enemy.SetRotation(Quaternion.LookRotation(moveVec));
+        //the boss is moving faster than normal enemys
+        enemy.HandleMove(moveVec * moveSpeed / 30f);
+        anim.SetFloat("velocity", 0.8f);
+    }
+
+    public void End()
+    {
+    }
+
+    override public string ToString() { return "Boss Chase"; }
+}
+
+
