@@ -80,7 +80,8 @@ public class BasicEnemyCharacter : Character
 
 	void OnTriggerEnter(Collider col){
 		// Check if player is in vision range
-		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player"))
+        {
 			// Determine which state we should change to
 			if(stateMachine.GetStateName().Equals("Patrol") || stateMachine.GetStateName().Equals("Return")){
 				visionRange.enabled = false;
