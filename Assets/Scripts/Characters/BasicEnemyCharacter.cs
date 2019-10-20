@@ -92,6 +92,7 @@ public class BasicEnemyCharacter : Character
 				state.SetChaseTarget(col.attachedRigidbody.gameObject);
 
 				stateMachine.SetState(state);
+				attackCollider.radius = attackRange;
 				return;
 			}
 			else if(stateMachine.GetStateName().Equals("Chase")){
@@ -105,6 +106,8 @@ public class BasicEnemyCharacter : Character
 				state.SetProjectile(projectile, attackDamage, 0, attackRange);
 
 				stateMachine.SetState(state);
+				// Keep the attack more persistent
+				attackCollider.radius = attackRange * 1.25f;
 			}
 		}
 	}
@@ -145,7 +148,35 @@ public class BasicEnemyCharacter : Character
 				state.SetChaseTarget(col.attachedRigidbody.gameObject);
 
 				stateMachine.SetState(state);
+				attackCollider.radius = attackRange;
 			}
 		}
+	}
+
+	// Tell this character to return to patrolling
+	public void ForceReturnToPatrol(){
+		// No need to force return if we're already patrolling
+		if(stateMachine.GetStateName().Equals("Patrol")) return;
+
+		visionRange.enabled = true;
+		attackCollider.enabled = false;
+
+		State_Return state = new State_Return(this);
+		state.SetAnimator(anim);
+		state.SetSpeed(moveSpeed);
+		state.SetDestination(checkpoints[lastCheckpoint]);
+
+		stateMachine.SetState(state);
+	}
+
+	// We have returned to where we were previously patrolling
+	public void OnArriveAtPatrolPoint(){
+		// Continue patrolling
+		State_Patrol state = new State_Patrol(this);
+		state.SetAnimator(anim);
+		state.SetPatrolPoints(checkpoints, ticksToReach);
+		state.currentCheckpoint = lastCheckpoint;
+
+		stateMachine.SetState(state);
 	}
 }

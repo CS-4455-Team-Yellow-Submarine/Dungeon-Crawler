@@ -90,6 +90,17 @@ public class Room : MonoBehaviour
 	void OnTriggerExit(Collider col){
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
 			messageDisplayTicks = 0; // Hide system message if there was any
+			// If there are any living enemies, have them go back to patrolling
+			Transform characters = transform.Find("Characters");
+			int numCharacters = characters.childCount;
+			for(int i = 0; i < numCharacters; i++){
+				Transform tf = characters.GetChild(i);
+				if(tf == null) continue;
+				GameObject obj = tf.gameObject;
+				if(obj != null && obj.activeSelf){
+					obj.transform.Find("Functional").gameObject.GetComponent<BasicEnemyCharacter>().ForceReturnToPatrol();
+				}
+			}
 		}
 	}
 

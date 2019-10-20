@@ -52,6 +52,7 @@ public class FSM{
 // State machine states defined here
 // *****
 
+// Patrolling state
 public class State_Patrol : FSM_State{
 	private BasicEnemyCharacter enemy;
 	private Animator anim;
@@ -108,6 +109,7 @@ public class State_Patrol : FSM_State{
 	override public string ToString(){ return "Patrol"; }
 }
 
+// Chasing state
 public class State_Chase : FSM_State{
 	private BasicEnemyCharacter enemy;
 	private Animator anim;
@@ -146,6 +148,55 @@ public class State_Chase : FSM_State{
 	}
 
 	override public string ToString(){ return "Chase"; }
+}
+
+// Return to patrol point
+public class State_Return : FSM_State{
+	private BasicEnemyCharacter enemy;
+	private Animator anim;
+	private int ticksLeft;
+	private Vector3 moveVec;
+	private Vector3 destination;
+	private float moveSpeed;
+
+	public State_Return(BasicEnemyCharacter ch){
+		this.enemy = ch;
+	}
+
+	public void SetSpeed(float f){
+		moveSpeed = f;
+	}
+
+	public void SetAnimator(Animator an){
+		this.anim = an;
+	}
+
+	public void SetDestination(Vector3 dst){
+		destination = dst;
+	}
+
+	public void Start(){
+	}
+
+	public void Execute(){
+		anim.SetFloat("velocity", 1f);
+		// Determine move direction
+		Vector3 heading = destination - enemy.GetPosition();
+		// Move in that direction as appropriate
+		if(heading.magnitude < moveSpeed / 50f){
+			enemy.HandleMove(heading / 50f);
+			enemy.OnArriveAtPatrolPoint();
+		}
+		else{
+			enemy.HandleMove(heading.normalized * moveSpeed / 50f);
+		}
+	}
+
+	public void End(){
+		
+	}
+
+	override public string ToString(){ return "Return"; }
 }
 
 

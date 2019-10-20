@@ -109,4 +109,6 @@ public class KnightController : MonoBehaviour
 	public void SetJumpSpeed(float y){
 		moveDir.y = y;
 	}
+
+	public Vector3 getForwardDirection(){ return forward; }
 }

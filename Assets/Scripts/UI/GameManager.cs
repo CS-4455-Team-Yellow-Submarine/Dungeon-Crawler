@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     void Reset()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("WinScene");
+        SceneManager.LoadScene("StartScene");
     }
 
 }

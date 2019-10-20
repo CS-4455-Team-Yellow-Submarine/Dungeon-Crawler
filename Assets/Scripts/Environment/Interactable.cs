@@ -16,6 +16,10 @@ public abstract class Interactable : MonoBehaviour
         
     }
 
+	public Vector3 GetPosition(){
+		return transform.position;
+	}
+
 	// Notify the player this thing can be interacted (if it is the player)
 	void OnTriggerEnter(Collider col){
 		// Get the game object associated with this if it exists

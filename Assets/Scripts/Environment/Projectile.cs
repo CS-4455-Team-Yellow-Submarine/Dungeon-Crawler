@@ -5,10 +5,9 @@ using UnityEngine;
 // Definitions for a projectile
 public enum ELEMENT{None = 0, Fire = 1, Water = 2};
 
-[RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-	protected Rigidbody rb;
+	//protected Rigidbody rb;
 	protected Rigidbody who; // Who attacked
 	protected Vector3 source; // Attack from position
 	protected GameObject target; // Attack target
@@ -23,9 +22,9 @@ public class Projectile : MonoBehaviour
     void Start()
     {
 		// Get the rigidbody attached to this
-		rb = GetComponent<Rigidbody>();
-		if (rb == null)
-			Debug.Log("Rigidbody could not be found!");
+		//rb = GetComponent<Rigidbody>();
+		//if (rb == null)
+		//	Debug.Log("Rigidbody could not be found!");
     }
 
 	// Instantiations for the projectile
@@ -49,7 +48,7 @@ public class Projectile : MonoBehaviour
 			moveVec = moveVec.normalized * attackRange;
 		}
 		// Ignore collisions between this projectile and the source
-		Physics.IgnoreCollision(who.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+		//Physics.IgnoreCollision(who.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
 	}
 
     // Update is called once per frame
@@ -62,11 +61,31 @@ public class Projectile : MonoBehaviour
 			HandleDead();
     }
 
-	// Determine if anything can be damaged here
+	/*/ Determine if anything can be damaged here
 	void OnCollisionEnter(Collision collision){
 		Collider col = collision.collider;
 		// Check if there is a rigidbody attached
 		if(col.attachedRigidbody == null) return;
+		// Check if it's something that can be damaged
+		GameObject obj = col.attachedRigidbody.gameObject;
+		if(!obj.tag.Equals("Character")) return;
+		// Damage it if possible
+		Component[] comps = obj.GetComponents(typeof(Component)) as Component[];
+		Character c = null;
+		// Need to cast types since the thing being damaged is a derived class
+		foreach(Component comp in comps)
+			if(comp is Character)
+				c = comp as Character;
+		if(c == null) return;
+		c.TakeDamage(damage);
+		HandleDead();
+	}*/
+
+	void OnTriggerEnter(Collider col){
+		// Check if there is a rigidbody attached
+		if(col.attachedRigidbody == null) return;
+		// Check to make sure it's not the source
+		if(col.attachedRigidbody == who) return;
 		// Check if it's something that can be damaged
 		GameObject obj = col.attachedRigidbody.gameObject;
 		if(!obj.tag.Equals("Character")) return;

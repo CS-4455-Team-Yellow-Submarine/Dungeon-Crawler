@@ -49,7 +49,7 @@ public class PlayerCharacter : Character
 		if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)){
 			// Interact with the first object in list (if any)
 			if(objectsInRange.Count > 0){
-				objectsInRange[0].OnInteraction(this.gameObject);
+				getObjectToInteractWith().OnInteraction(this.gameObject);
 			}
 		}
 
@@ -64,6 +64,25 @@ public class PlayerCharacter : Character
 
 	public void RemoveFromPlayerRange(Interactable obj){
 		objectsInRange.Remove(obj);
+	}
+
+	// Returns the most plausible object for interaction
+	private Interactable getObjectToInteractWith(){
+		// Get the forward direction
+		Vector3 forward = GetComponent<KnightController>().getForwardDirection();
+		// Determine which object is the most likely
+		Interactable result = null;
+		float maxDotProduct = -2f;
+		foreach(Interactable obj in objectsInRange){
+			// Direction to object
+			Vector3 dirToObject = (obj.GetPosition() - transform.position).normalized;
+			float dotProduct = Vector3.Dot(forward, dirToObject);
+			if(dotProduct > maxDotProduct){
+				maxDotProduct = dotProduct;
+				result = obj;
+			}
+		}
+		return result;
 	}
 
 	public void SetLastValidTile(GameObject obj){ 
