@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class KnightController : MonoBehaviour
 {
     float speed = 4;
     float rotSpeed = 180;
     float rot = 0f;
-    float gravity = 8;
     Vector3 moveDir = Vector3.zero;
     CharacterController controller;
     Animator anim;
 	Vector3 forward;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,73 +30,63 @@ public class KnightController : MonoBehaviour
 
     void Movement()
     {
-        if (controller.isGrounded)
-		{
-			rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
-			forward = Quaternion.Euler(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0) * forward;
-			forward = forward.normalized;
-			if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.W))
-            {
-                if (anim.GetBool("attacking"))
-                {
-                    return;
-                }
-                else if (!anim.GetBool("attacking"))
-                {
-                    anim.SetBool("running", true);
-                    anim.SetInteger("condition", 1);
-                    moveDir = forward * speed;
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.W))
-            {
-                anim.SetBool("running", false);
-                anim.SetInteger("condition", 0);
-                moveDir = Vector3.zero;
-            }
-            // move backwards
-			if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.S))
-            {
-                if (anim.GetBool("attacking"))
-                {
-                    return;
-                }
-                else if (!anim.GetBool("attacking"))
-                {
-                    anim.SetBool("running", true);
-					anim.SetInteger("condition", 1);
-					moveDir = -forward * speed;
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.S))
-            {
-                anim.SetBool("running", false);
-                anim.SetInteger("condition", 0);
-                moveDir = new Vector3(0, 0, 0);
-            }
-
+		rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
+		forward = Quaternion.Euler(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0) * forward;
+		forward = forward.normalized;
+		if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.W)){
+            if (anim.GetBool("attacking")){
+                   return;
+			}
+			else if (!anim.GetBool("attacking")){
+				anim.SetBool("running", true);
+				anim.SetInteger("condition", 1);
+				float prevY = moveDir.y;
+				moveDir = forward * speed;
+				moveDir.y = prevY;
+			}
         }
+		if (Input.GetKeyUp(KeyCode.W)){
+			anim.SetBool("running", false);
+			anim.SetInteger("condition", 0);
+			float prevY = moveDir.y;
+			moveDir = Vector3.zero;
+			moveDir.y = prevY;
+		}
+		// move backwards
+		if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.S)){
+			if (anim.GetBool("attacking")){
+                    return;
+            }
+            else if (!anim.GetBool("attacking")){
+            	anim.SetBool("running", true);
+				anim.SetInteger("condition", 1);
+				float prevY = moveDir.y;
+				moveDir = -forward * speed;
+				moveDir.y = prevY;
+			}
+		}
+		if (Input.GetKeyUp(KeyCode.S)){
+			anim.SetBool("running", false);
+			anim.SetInteger("condition", 0);
+			float prevY = moveDir.y;
+			moveDir = Vector3.zero;
+			moveDir.y = prevY;
+		}
+		moveDir.y += Physics.gravity.y * Time.deltaTime;
         controller.Move(moveDir * Time.deltaTime);
 		transform.eulerAngles = new Vector3(0, rot, 0);
     }
 
     void GetInput()
     {
-        if (controller.isGrounded)
-        {
-            if (Input.GetMouseButtonDown (0))
-            {
-                if (anim.GetBool("running"))
-                {
-                    anim.SetBool("running", false);
-                    anim.SetInteger("condition", 0);
-                }
-                if (!anim.GetBool("running"))
-                {
-                    Attacking();
-                }
-                
-            }
+		if (Input.GetMouseButtonDown (0)){
+			if (anim.GetBool("running")){
+				anim.SetBool("running", false);
+				anim.SetInteger("condition", 0);
+			}
+			if (!anim.GetBool("running")){
+				Attacking();
+			}
         }
     }
 
@@ -112,4 +103,8 @@ public class KnightController : MonoBehaviour
         anim.SetInteger("condition", 0);
         anim.SetBool("attacking", false);
     }
+
+	public void SetJumpSpeed(float y){
+		moveDir.y = y;
+	}
 }
