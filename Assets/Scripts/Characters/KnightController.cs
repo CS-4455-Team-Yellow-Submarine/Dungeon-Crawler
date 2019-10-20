@@ -5,17 +5,19 @@ using UnityEngine;
 public class KnightController : MonoBehaviour
 {
     float speed = 4;
-    float rotSpeed = 80;
+    float rotSpeed = 180;
     float rot = 0f;
     float gravity = 8;
     Vector3 moveDir = Vector3.zero;
     CharacterController controller;
     Animator anim;
+	Vector3 forward;
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+		forward = new Vector3(0, 0, 1);
     }
 
     // Update is called once per frame
@@ -28,8 +30,11 @@ public class KnightController : MonoBehaviour
     void Movement()
     {
         if (controller.isGrounded)
-        {
-            if (Input.GetKey(KeyCode.W))
+		{
+			rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
+			forward = Quaternion.Euler(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0) * forward;
+			forward = forward.normalized;
+			if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.W))
             {
                 if (anim.GetBool("attacking"))
                 {
@@ -39,19 +44,17 @@ public class KnightController : MonoBehaviour
                 {
                     anim.SetBool("running", true);
                     anim.SetInteger("condition", 1);
-                    moveDir = new Vector3(0, 0, 1);
-                    moveDir *= speed;
-                    moveDir = transform.InverseTransformDirection(moveDir);
+                    moveDir = forward * speed;
                 }
             }
             if (Input.GetKeyUp(KeyCode.W))
             {
                 anim.SetBool("running", false);
                 anim.SetInteger("condition", 0);
-                moveDir = new Vector3(0, 0, 0);
+                moveDir = Vector3.zero;
             }
             // move backwards
-            if (Input.GetKey(KeyCode.S))
+			if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.S))
             {
                 if (anim.GetBool("attacking"))
                 {
@@ -60,10 +63,8 @@ public class KnightController : MonoBehaviour
                 else if (!anim.GetBool("attacking"))
                 {
                     anim.SetBool("running", true);
-                    anim.SetInteger("condition", 1);
-                    moveDir = new Vector3(0, 0, -1);
-                    moveDir *= speed;
-                    moveDir = transform.InverseTransformDirection(moveDir);
+					anim.SetInteger("condition", 1);
+					moveDir = -forward * speed;
                 }
             }
             if (Input.GetKeyUp(KeyCode.S))
@@ -74,10 +75,8 @@ public class KnightController : MonoBehaviour
             }
 
         }
-        rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
-        moveDir.y -= gravity * Time.deltaTime;
         controller.Move(moveDir * Time.deltaTime);
-        transform.eulerAngles = new Vector3(0, rot, 0);
+		transform.eulerAngles = new Vector3(0, rot, 0);
     }
 
     void GetInput()

@@ -31,6 +31,7 @@ public class PlayerCharacter : Character
     // Update is called once per frame
     new void FixedUpdate()
 	{
+		/*
 		if(ticks_until_jump > 0) --ticks_until_jump;
 		base.FixedUpdate();
 		// Check for key inputs
@@ -55,9 +56,10 @@ public class PlayerCharacter : Character
 				objectsInRange[0].OnInteraction(this.gameObject);
 			}
 		}
+		*/
 
 		// Update health bar
-		healthSlider.value = health;
+		//healthSlider.value = health;
 	}
 
 	// Methods to get something added to or removed from the list of interactables in range
