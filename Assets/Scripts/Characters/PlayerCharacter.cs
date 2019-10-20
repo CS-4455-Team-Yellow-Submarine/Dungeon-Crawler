@@ -19,6 +19,9 @@ public class PlayerCharacter : Character
 	// Health bar
 	private Slider healthSlider;
 
+	// Time of last attack
+	private float lastAttackTime = -1f;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -74,5 +77,20 @@ public class PlayerCharacter : Character
 		GetComponent<CharacterController>().enabled = (true);
 		int damageToTake = health / 5; // Lose 20% of Health
 		TakeDamage(damageToTake);
+	}
+
+	public void HandleAttack(Vector3 forward){
+		// Check to make sure it's been at least 1 second since last attack
+		if(Time.time - 1f > lastAttackTime){
+			lastAttackTime = Time.time;
+			// Launch projectile forward
+			GameObject obj = Object.Instantiate(projectile) as GameObject;
+			obj.transform.parent = transform;
+			Projectile pr = obj.GetComponent<Projectile>();
+			// Associate definitions with the projectile
+			pr.Define(GetComponent<Rigidbody>(), transform.position + Vector3.up, null);
+			// Override the direction of this projectile
+			pr.SetMoveDirection(forward);
+		}
 	}
 }

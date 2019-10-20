@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 	protected GameObject target; // Attack target
 	protected float moveSpeed; // How fast this thing moves
 	protected int moveTime;
-	protected Vector3 moveVec;
+	protected Vector3 moveVec = new Vector3(0, 1, 0);
 	public ELEMENT element = ELEMENT.None;
 	public int damage = 10; // How much damage can we inflict
 	protected float attackRange; // How far the projectile can fly, only relevant for melee attacks
@@ -37,11 +37,14 @@ public class Projectile : MonoBehaviour
 		moveSpeed = spd;
 		attackRange = range;
 		// Melee or ranged projectile?
-		if(moveSpeed < 0.001f)
+		if(moveSpeed < 0.001f){
 			moveTime = 40; // Melee, just have it hit target after 0.8 seconds
-		else // Otherwise, calculate how long it'll take to reach target (for destruction)
+		}
+		else{ // Otherwise, calculate how long it'll take to reach target (for destruction)
 			moveTime = (int)((target.transform.position - source).magnitude / moveSpeed * 50f);
-		moveVec = (target.transform.position - source) / moveTime;
+		}
+		if(target != null)
+			moveVec = (target.transform.position - source) / moveTime;
 		if(moveSpeed < 0.001f){
 			moveVec = moveVec.normalized * attackRange;
 		}
@@ -52,7 +55,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		transform.position = transform.position + moveVec;
+		transform.position = transform.position + (moveVec / 40f);
 		--moveTime;
 		// Are we done moving?
 		if(moveTime == 0)
@@ -77,6 +80,11 @@ public class Projectile : MonoBehaviour
 		if(c == null) return;
 		c.TakeDamage(damage);
 		HandleDead();
+	}
+
+	// Override the projectile direction
+	public void SetMoveDirection(Vector3 dir){
+		moveVec = dir;
 	}
 
 	// Any optional things to do when this projectile should die

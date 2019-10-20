@@ -68,6 +68,7 @@ public class BasicEnemyCharacter : Character
 		state.currentCheckpoint = -1;
 
 		stateMachine.SetState(state);
+		Debug.Log("Created state machine, is in state " + stateMachine.GetStateName());
     }
 
 

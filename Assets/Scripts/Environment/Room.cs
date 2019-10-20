@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Add different types of rooms here
 public enum ROOM_TYPE{None = 0, Monster = 1, Puzzle = 2, Platform = 4};
@@ -9,6 +10,10 @@ public class Room : MonoBehaviour
 {
 	public ROOM_TYPE roomType = ROOM_TYPE.None;
 	public bool blockFront = false, blockRight = false, blockBack = false, blockLeft = false;
+	public string entryMessage = "";
+	public bool repeatMessage = false;
+	private int messageDisplayTicks = -1;
+	private bool displayedMessage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -65,12 +70,26 @@ public class Room : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+		if(messageDisplayTicks > 0)
+			--messageDisplayTicks;
+		if(messageDisplayTicks == 0){
+			GameObject.Find("SystemMessage").GetComponent<Text>().text = "";
+			messageDisplayTicks = -1;
+		}
     }
 
 	void OnTriggerEnter(Collider col){
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
-			//Debug.Log("Player entered room!");
+			if(displayedMessage && !repeatMessage) return; // No need to show any system message again if we choose not to
+			GameObject.Find("SystemMessage").GetComponent<Text>().text = entryMessage;
+			messageDisplayTicks = 350; // Show message for 7 seconds
+			displayedMessage = true;
+		}
+	}
+
+	void OnTriggerExit(Collider col){
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+			messageDisplayTicks = 0; // Hide system message if there was any
 		}
 	}
 

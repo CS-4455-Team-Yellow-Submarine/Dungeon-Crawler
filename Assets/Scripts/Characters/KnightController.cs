@@ -99,7 +99,9 @@ public class KnightController : MonoBehaviour
     {
         anim.SetBool("attacking", true);
         anim.SetInteger("condition", 2);
-        yield return new WaitForSeconds(1);
+		//yield return new WaitForSeconds(0.5f);
+		GetComponent<PlayerCharacter>().HandleAttack(forward);
+        yield return new WaitForSeconds(1f);
         anim.SetInteger("condition", 0);
         anim.SetBool("attacking", false);
     }
