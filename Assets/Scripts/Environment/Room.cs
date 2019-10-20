@@ -98,7 +98,11 @@ public class Room : MonoBehaviour
 				if(tf == null) continue;
 				GameObject obj = tf.gameObject;
 				if(obj != null && obj.activeSelf){
-					obj.transform.Find("Functional").gameObject.GetComponent<BasicEnemyCharacter>().ForceReturnToPatrol();
+					Transform fn = tf.Find("Functional");
+					if(fn == null) continue;
+					BasicEnemyCharacter en = fn.gameObject.GetComponent<BasicEnemyCharacter>();
+					if(en == null) continue;
+					en.ForceReturnToPatrol();
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCharacter : Character
@@ -94,7 +95,8 @@ public class PlayerCharacter : Character
 		GetComponent<CharacterController>().enabled = (false);
 		transform.position = lastValidTile.transform.position + Vector3.up;
 		GetComponent<CharacterController>().enabled = (true);
-		int damageToTake = health / 5; // Lose 20% of Health
+		//int damageToTake = health / 5; // Lose 20% of Health
+		int damageToTake = 40;
 		TakeDamage(damageToTake);
 	}
 
@@ -111,5 +113,17 @@ public class PlayerCharacter : Character
 			// Override the direction of this projectile
 			pr.SetMoveDirection(forward);
 		}
+	}
+
+	new void HandleDeadState(){
+		Debug.Log("You died.");
+		GameObject.Find("SystemMessage").GetComponent<Text>().text = "You have died...";
+		Time.timeScale = 0f;
+		Invoke("GoToStartMenu", 2f);
+		base.HandleDeadState();
+	}
+
+	private void GoToStartMenu(){
+		SceneManager.LoadScene("StartScene");
 	}
 }

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public GameObject youwintext;
-    public float resetDelay = 1.0f;
+    public float resetDelay = 2.0f;
 
     void Awake()
     {

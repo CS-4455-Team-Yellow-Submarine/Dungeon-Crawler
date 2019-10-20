@@ -19,6 +19,7 @@ public class GameStarter : MonoBehaviour
 
     public void StartGame()
     {
+		Time.timeScale = 1f;
         SceneManager.LoadScene("DemoScene");
     }
 }

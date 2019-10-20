@@ -16,8 +16,7 @@ public class Globals : MonoBehaviour
         
     }
 
-	void OnCollisionEnter(Collision collision){
-		Collider col = collision.collider;
+	void OnTriggerEnter(Collider col){
 		// Check if there is a rigidbody attached
 		if(col.attachedRigidbody == null) return;
 		// Check if it's the player
