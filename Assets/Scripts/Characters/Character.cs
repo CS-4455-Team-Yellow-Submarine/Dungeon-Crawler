@@ -7,7 +7,7 @@ public enum CHARACTER_TYPE{Player, Monster, NPC};
 // Teams
 public enum CHARACTER_TEAM{Friendly, Neutral, Hostile};
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
 public abstract class Character : MonoBehaviour
 {
 	public int health = 100;
