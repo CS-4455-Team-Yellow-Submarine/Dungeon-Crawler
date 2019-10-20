@@ -56,6 +56,12 @@ public class PlayerCharacter : Character
 
 		// Update health bar
 		healthSlider.value = health;
+
+		if (health <= 0)
+		{
+			HandleDeadState();
+			// SceneManager.LoadScene("LoseScene");
+		}
 	}
 
 	// Methods to get something added to or removed from the list of interactables in range
@@ -119,8 +125,8 @@ public class PlayerCharacter : Character
 		Debug.Log("You died.");
 		GameObject.Find("SystemMessage").GetComponent<Text>().text = "You have died...";
 		Time.timeScale = 0f;
-		Invoke("GoToStartMenu", 2f);
 		base.HandleDeadState();
+		SceneManager.LoadScene("LoseScene");
 	}
 
 	private void GoToStartMenu(){
