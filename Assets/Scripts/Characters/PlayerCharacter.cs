@@ -51,7 +51,7 @@ public class PlayerCharacter : Character
 		}
 
 		// Update health bar
-		// healthSlider.value = health;
+		healthSlider.value = health;
 	}
 
 	// Methods to get something added to or removed from the list of interactables in range
@@ -69,7 +69,9 @@ public class PlayerCharacter : Character
 
 	// Fell off the map or something, take damage and return to last valid tile
 	public void ReturnToLastValidTile(){
+		GetComponent<CharacterController>().enabled = (false);
 		transform.position = lastValidTile.transform.position + Vector3.up;
+		GetComponent<CharacterController>().enabled = (true);
 		int damageToTake = health / 5; // Lose 20% of Health
 		TakeDamage(damageToTake);
 	}

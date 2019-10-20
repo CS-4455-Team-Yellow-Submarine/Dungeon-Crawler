@@ -85,7 +85,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 20000
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.54
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -110,10 +110,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6470788081419635909}
     m_Modifications:
-    - target: {fileID: 100000, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
-      propertyPath: m_Name
-      value: Render
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -157,6 +153,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
+      propertyPath: m_Name
+      value: Render
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
       propertyPath: m_LocalScale.x
