@@ -62,3 +62,9 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Any other file types used for class
+*.mp4
+*.mp3
+*.flv
+*.zip
