@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
 	public bool repeatMessage = false;
 	private int messageDisplayTicks = -1;
 	private bool displayedMessage = false;
+	static string lastMessageFromRoom;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,9 @@ public class Room : MonoBehaviour
 			backDoor.SetActive(true);
 		if(blockLeft && leftDoor != null)
 			leftDoor.SetActive(true);
+
+		// Other initializations
+		lastMessageFromRoom = "";
     }
 
     void FixedUpdate()
@@ -73,23 +77,29 @@ public class Room : MonoBehaviour
 		if(messageDisplayTicks > 0)
 			--messageDisplayTicks;
 		if(messageDisplayTicks == 0){
-			GameObject.Find("SystemMessage").GetComponent<Text>().text = "";
+			if(lastMessageFromRoom.Equals(name)){
+				GameObject.Find("SystemMessage").GetComponent<Text>().text = "";
+			}
 			messageDisplayTicks = -1;
 		}
     }
 
 	void OnTriggerEnter(Collider col){
-		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player") && col.attachedRigidbody.gameObject.tag.Equals("Character")){
 			if(displayedMessage && !repeatMessage) return; // No need to show any system message again if we choose not to
 			GameObject.Find("SystemMessage").GetComponent<Text>().text = entryMessage;
-			messageDisplayTicks = 350; // Show message for 7 seconds
+			messageDisplayTicks = 300; // Show message for 6 seconds
 			displayedMessage = true;
+			lastMessageFromRoom = name;
 		}
 	}
 
 	void OnTriggerExit(Collider col){
-		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
-			messageDisplayTicks = 0; // Hide system message if there was any
+		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player") && col.attachedRigidbody.gameObject.tag.Equals("Character")){
+			if(lastMessageFromRoom != name){
+				GameObject.Find("SystemMessage").GetComponent<Text>().text = "";
+				messageDisplayTicks = -1;
+			}
 			// If there are any living enemies, have them go back to patrolling
 			Transform characters = transform.Find("Characters");
 			int numCharacters = characters.childCount;

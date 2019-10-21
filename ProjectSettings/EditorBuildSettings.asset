@@ -8,15 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 08c380803c8adaef5a005e593e9c72ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: 79b58b2a16ccc394db922ded5e7272a7
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 5c4112377106aa96da64becce6e6bd24
-  - enabled: 1
-    path: Assets/Scenes/PauseScene.unity
-    guid: 1748392fa72a5722c9778a135fb9edd8
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/LoseScene.unity
     guid: ea3f9de71ddb415989b63af359ed8ab8
