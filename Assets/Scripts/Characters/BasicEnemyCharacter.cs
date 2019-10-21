@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ConeCollider), typeof(CapsuleCollider), typeof(Animator))]
 public class BasicEnemyCharacter : Character
@@ -76,6 +77,11 @@ public class BasicEnemyCharacter : Character
 		base.FixedUpdate();
 		// Update state machine
 		stateMachine.Update();
+
+		if(health <= 0){
+			GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = 0;
+			GameObject.Find("Enemy_Health").GetComponent<Text>().text = "";
+		}
     }
 
 	void OnTriggerEnter(Collider col){
@@ -178,5 +184,12 @@ public class BasicEnemyCharacter : Character
 		state.currentCheckpoint = lastCheckpoint;
 
 		stateMachine.SetState(state);
+	}
+
+	// Used for updating the health info
+	new public void TakeDamage(int amount){
+		base.TakeDamage(amount);
+		GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = health;
+		GameObject.Find("Enemy_Health").GetComponent<Text>().text = unitName;
 	}
 }

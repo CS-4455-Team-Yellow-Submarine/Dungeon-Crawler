@@ -1883,6 +1883,8 @@ MonoBehaviour:
   attackDamage: 10
   projectile: {fileID: 4878555154799798424, guid: 93d36582e759d634791c3eb336c23f6d,
     type: 3}
+  hitSound: {fileID: 0}
+  unitName: Chaos Knight
   moveSpeed: 0
   playerInRange: 0
   attackDelay: 1

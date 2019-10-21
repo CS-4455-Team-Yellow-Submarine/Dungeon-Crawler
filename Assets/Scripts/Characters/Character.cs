@@ -19,6 +19,7 @@ public abstract class Character : MonoBehaviour
 	public GameObject projectile;
 	protected int maxHealth;
 	public AudioClip hitSound; // Sound clip to play on taking damage
+	public string unitName = "Unit Name";
 
     // Start is called before the first frame update
     protected void Start()
@@ -61,7 +62,6 @@ public abstract class Character : MonoBehaviour
 		if(health <= 0)
 			isDead = true;
 		// Any other things to handle
-		Debug.Log(name + " took damage! Health remaining: " + health);
 		tookDamage = false;
 	}
 

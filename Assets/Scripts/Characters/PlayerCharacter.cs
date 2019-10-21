@@ -122,7 +122,6 @@ public class PlayerCharacter : Character
 	}
 
 	new void HandleDeadState(){
-		Debug.Log("You died.");
 		GameObject.Find("SystemMessage").GetComponent<Text>().text = "You have died...";
 		Time.timeScale = 0f;
 		base.HandleDeadState();

@@ -97,7 +97,15 @@ public class Projectile : MonoBehaviour
 			if(comp is Character)
 				c = comp as Character;
 		if(c == null) return;
-		c.TakeDamage(damage);
+		if(c is BasicEnemyCharacter){
+			(c as BasicEnemyCharacter).TakeDamage(damage);
+		} 
+		else if(c is PlayerCharacter){
+			(c as PlayerCharacter).TakeDamage(damage);
+		}
+		else{
+			c.TakeDamage(damage);
+		}
 		HandleDead();
 	}
 
