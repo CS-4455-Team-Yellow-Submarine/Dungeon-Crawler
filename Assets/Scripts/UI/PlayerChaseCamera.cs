@@ -10,12 +10,13 @@ public class PlayerChaseCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		offset = transform.position - player.transform.position;
+		//offset = transform.position - player.transform.position;
     }
 		
     void LateUpdate()
     {
-		if(player != null)
-			transform.position = player.transform.position + offset;
+		if(player != null){
+			//transform.position = player.transform.position + offset;
+		}
     }
 }

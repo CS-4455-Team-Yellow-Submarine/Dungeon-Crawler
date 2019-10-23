@@ -111,4 +111,6 @@ public class KnightController : MonoBehaviour
 	}
 
 	public Vector3 getForwardDirection(){ return forward; }
+
+	public float getRotation(){ return rot; }
 }
