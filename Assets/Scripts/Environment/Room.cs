@@ -8,6 +8,7 @@ public enum ROOM_TYPE{None = 0, Monster = 1, Puzzle = 2, Platform = 4};
 
 public class Room : MonoBehaviour
 {
+	public GameObject torch;
 	public ROOM_TYPE roomType = ROOM_TYPE.None;
 	public bool blockFront = false, blockRight = false, blockBack = false, blockLeft = false;
 	public string entryMessage = "";
@@ -32,6 +33,12 @@ public class Room : MonoBehaviour
 			if(wallPos.x < minX) minX = wallPos.x;
 			if(wallPos.z > maxZ) maxZ = wallPos.z;
 			if(wallPos.z < minZ) minZ = wallPos.z;
+			// Randomly spawn a torch somewhere along the wall
+			if(torch != null){
+				GameObject i_torch = Instantiate(torch) as GameObject;
+				i_torch.transform.parent = wall.transform;
+				i_torch.transform.localPosition = new Vector3(Random.Range(-3f, 3f), Random.Range(2.9f, 3.5f), -0.05f);
+			}
 			// Find each of the blocking doors
 			Transform tf = wall.transform.Find("frontDoor");
 			if(tf != null){

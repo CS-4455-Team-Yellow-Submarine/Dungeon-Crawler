@@ -30295,7 +30295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b90c0e270a0a66429c4c72d3e35d88d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomType: 0
+  torch: {fileID: 8384564103066103729, guid: 0e527b32123761342a8b9568aba19d73, type: 3}
+  roomType: 1
   blockFront: 0
   blockRight: 1
   blockBack: 0

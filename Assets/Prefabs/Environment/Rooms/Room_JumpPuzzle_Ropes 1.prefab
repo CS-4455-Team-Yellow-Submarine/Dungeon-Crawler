@@ -1169,7 +1169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b90c0e270a0a66429c4c72d3e35d88d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomType: 0
+  torch: {fileID: 0}
+  roomType: 4
   blockFront: 0
   blockRight: 0
   blockBack: 0

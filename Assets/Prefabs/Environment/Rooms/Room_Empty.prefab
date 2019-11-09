@@ -12756,11 +12756,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b90c0e270a0a66429c4c72d3e35d88d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torch: {fileID: 8384564103066103729, guid: 0e527b32123761342a8b9568aba19d73, type: 3}
   roomType: 0
   blockFront: 0
   blockRight: 0
   blockBack: 0
   blockLeft: 0
+  entryMessage: 
+  repeatMessage: 0
 --- !u!1 &5471947013359186119
 GameObject:
   m_ObjectHideFlags: 0
@@ -22910,6 +22913,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5471947013049441697}
     m_Modifications:
+    - target: {fileID: 7655408620497871590, guid: c3d8802adbf44f04ca3aeaec0882c782,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground_15x15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655408620497871590, guid: c3d8802adbf44f04ca3aeaec0882c782,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 2428782946660775813, guid: c3d8802adbf44f04ca3aeaec0882c782,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22964,16 +22977,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655408620497871590, guid: c3d8802adbf44f04ca3aeaec0882c782,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground_15x15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655408620497871590, guid: c3d8802adbf44f04ca3aeaec0882c782,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3d8802adbf44f04ca3aeaec0882c782, type: 3}
