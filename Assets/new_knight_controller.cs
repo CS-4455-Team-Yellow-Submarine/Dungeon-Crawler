@@ -8,10 +8,10 @@ public class new_knight_controller : MonoBehaviour
     public bool isGrounded;
     public bool isAttacking;
 
-    private float speed;
+    private float speed = 0.05f;
     private float w_speed = 0.05f;
     private float r_speed = 0.1f;
-    public float rotspeed;
+    public float rotspeed = 0.1f;
     Rigidbody rb;
     Animator anim;
     // Start is called before the first frame update

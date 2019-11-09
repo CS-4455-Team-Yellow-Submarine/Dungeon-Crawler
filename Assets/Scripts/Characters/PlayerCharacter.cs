@@ -7,10 +7,6 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCharacter : Character
 {
-	// 1 tick = 0.02s
-	private int JUMP_COOLDOWN = 60;
-	private int ticks_until_jump = 0;
-
 	// List of things in range that can be interacted with
 	private List<Interactable> objectsInRange;
 
@@ -36,15 +32,7 @@ public class PlayerCharacter : Character
     // Update is called once per frame
     new void FixedUpdate()
 	{
-		if(ticks_until_jump > 0) --ticks_until_jump;
 		base.FixedUpdate();
-		// Check for key inputs
-		// MOVEMENT INPUT
-		if (Input.GetKeyDown("space") && ticks_until_jump == 0)
-		{
-			GetComponent<KnightController>().SetJumpSpeed(Physics.gravity.y * -0.6f);
-			ticks_until_jump = JUMP_COOLDOWN;
-		}
 
 		// INTERACTION INPUT
 		if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)){
@@ -76,7 +64,7 @@ public class PlayerCharacter : Character
 	// Returns the most plausible object for interaction
 	private Interactable getObjectToInteractWith(){
 		// Get the forward direction
-		Vector3 forward = GetComponent<KnightController>().getForwardDirection();
+		Vector3 forward = GetComponent<NewKnightController>().forward;
 		// Determine which object is the most likely
 		Interactable result = null;
 		float maxDotProduct = -2f;
@@ -119,6 +107,20 @@ public class PlayerCharacter : Character
 			// Override the direction of this projectile
 			pr.SetMoveDirection(forward);
 		}
+	}
+
+	public void DoAttack(){
+		Debug.Log("Attacking");
+		Vector3 forward = GetComponent<NewKnightController>().forward;
+		lastAttackTime = Time.time;
+		// Launch projectile forward
+		GameObject obj = Object.Instantiate(projectile) as GameObject;
+		obj.transform.parent = transform;
+		Projectile pr = obj.GetComponent<Projectile>();
+		// Associate definitions with the projectile
+		pr.Define(GetComponent<Rigidbody>(), transform.position + Vector3.up, null);
+		// Override the direction of this projectile
+		pr.SetMoveDirection(forward);
 	}
 
 	new void HandleDeadState(){
