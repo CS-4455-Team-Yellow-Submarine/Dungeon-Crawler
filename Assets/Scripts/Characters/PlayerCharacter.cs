@@ -106,7 +106,6 @@ public class PlayerCharacter : Character
 	}
 
 	public void DoAttack(){
-		Debug.Log("Attacking");
 		Vector3 forward = GetComponent<NewKnightController>().forward;
 		lastAttackTime = Time.time;
 		// Launch projectile forward

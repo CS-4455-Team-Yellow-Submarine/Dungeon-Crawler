@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class NewKnightController : MonoBehaviour
 {
-	private const float JUMP_COOLDOWN = 1.25f;
+	private const float JUMP_COOLDOWN = 1.1f;
 	private float lastJump = -99f;
     float speed = 4;
     float rotSpeed = 180;
     float rot = 0f;
-    Vector3 moveDir = Vector3.zero;
+    public Vector3 moveDir = Vector3.zero;
     CharacterController controller;
     Animator anim;
 	public Vector3 forward {get; set;}
@@ -94,16 +94,16 @@ public class NewKnightController : MonoBehaviour
     }
 
 	// Completed attack animation
-	void OnAttackFinish(){
+	public void OnAttackFinish(){
 		anim.SetBool("isAttacking", false);
 	}
 
 	// Jump animation
-	void OnJumpStart(){
+	public void OnJumpStart(){
 		moveDir.y = Physics.gravity.y * -0.6f;
 	}
 
-	void OnJumpFinish(){
+	public void OnJumpFinish(){
 		anim.SetBool("isJumping", false);
 	}
 
