@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Signpost : MonoBehaviour
 {
 	public GameObject messagePanel;
-	public string message;
+	public string[] messageLines;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,11 @@ public class Signpost : MonoBehaviour
 		// Display the message to the player
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player") && col.attachedRigidbody.gameObject.tag.Equals("Character")){
 			messagePanel.SetActive(true);
-			GameObject.Find("Sign_Message").GetComponent<Text>().text = message;
+			string displayMessage = "";
+			foreach(string s in messageLines){
+				displayMessage = displayMessage + s + "\n";
+			}
+			GameObject.Find("Sign_Message").GetComponent<Text>().text = displayMessage;
 		}
 	}
 
