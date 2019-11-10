@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggeredObject : MonoBehaviour
+public abstract class TriggeredObject : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,5 +16,5 @@ public class TriggeredObject : MonoBehaviour
         
     }
 
-	public void getTriggered(){}
+	public abstract void getTriggered();
 }
