@@ -77,6 +77,10 @@ public class NewKnightController : MonoBehaviour
 			moveDir.y = prevY;
 		}
 		moveDir.y += Physics.gravity.y * Time.deltaTime;
+		if(anim.GetBool("isInteracting")){
+			moveDir.x = 0;
+			moveDir.z = 0;
+		}
         controller.Move(moveDir * Time.deltaTime);
 		transform.eulerAngles = new Vector3(0, rot, 0);
     }

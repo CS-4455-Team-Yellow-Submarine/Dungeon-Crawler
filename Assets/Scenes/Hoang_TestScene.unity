@@ -96,7 +96,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 739a6bfa41734934ca6c6769a8e8ab4c,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -1174,7 +1175,7 @@ PrefabInstance:
     - target: {fileID: 4166326705441250420, guid: a88ce3e9202242a47a19cbc6bf12450c,
         type: 3}
       propertyPath: entryMessage
-      value: Press Shift to push boulders.
+      value: Press the Right Mouse to push boulders.
       objectReference: {fileID: 0}
     - target: {fileID: 4166326705441250420, guid: a88ce3e9202242a47a19cbc6bf12450c,
         type: 3}

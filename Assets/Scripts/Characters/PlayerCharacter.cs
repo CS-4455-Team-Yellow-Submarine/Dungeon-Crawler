@@ -35,11 +35,8 @@ public class PlayerCharacter : Character
 		base.FixedUpdate();
 
 		// INTERACTION INPUT
-		if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)){
-			// Interact with the first object in list (if any)
-			if(objectsInRange.Count > 0){
-				getObjectToInteractWith().OnInteraction(this.gameObject);
-			}
+		if(Input.GetMouseButtonDown(1) && objectsInRange.Count > 0){
+			GetComponent<Animator>().SetBool("isInteracting", true);
 		}
 
 		// Update health bar
@@ -48,7 +45,6 @@ public class PlayerCharacter : Character
 		if (health <= 0)
 		{
 			HandleDeadState();
-			// SceneManager.LoadScene("LoseScene");
 		}
 	}
 
@@ -132,5 +128,16 @@ public class PlayerCharacter : Character
 
 	private void GoToStartMenu(){
 		SceneManager.LoadScene("StartScene");
+	}
+
+	public void DoInteract(){
+		// Interact with the first object in list (if any)
+		if(objectsInRange.Count > 0){
+			getObjectToInteractWith().OnInteraction(this.gameObject);
+		}
+	}
+
+	public void OnInteractFinish(){
+		GetComponent<Animator>().SetBool("isInteracting", false);
 	}
 }
