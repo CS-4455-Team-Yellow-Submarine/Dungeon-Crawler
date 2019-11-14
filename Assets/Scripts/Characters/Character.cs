@@ -57,7 +57,7 @@ public abstract class Character : MonoBehaviour
 	}
 
 	// Function to handle when damage is taken
-	protected void HandleDamageTaken(){
+	protected virtual void HandleDamageTaken(){
 		// Should we die?
 		if(health <= 0)
 			isDead = true;
@@ -66,8 +66,12 @@ public abstract class Character : MonoBehaviour
 	}
 
 	// Function to handle when we die
-	protected void HandleDeadState(){
-		//Debug.Log("I am dead");
+	protected virtual void HandleDeadState(){
+		GetComponent<Animator>().SetBool("isDead", true);
+	}
+
+	// After death animation
+	public virtual void OnCharacterDeath(){
 		Destroy(this.gameObject);
 	}
 

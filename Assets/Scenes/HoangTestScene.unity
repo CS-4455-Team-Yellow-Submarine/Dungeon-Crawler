@@ -1368,6 +1368,11 @@ PrefabInstance:
       propertyPath: messagePanel
       value: 
       objectReference: {fileID: 2026426154}
+    - target: {fileID: 5471947012728828892, guid: 920741caa5354734492a964b7211b2b3,
+        type: 3}
+      propertyPath: blockBack
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 920741caa5354734492a964b7211b2b3, type: 3}
 --- !u!4 &897360264 stripped
