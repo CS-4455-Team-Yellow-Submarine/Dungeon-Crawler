@@ -71519,9 +71519,9 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.7
-    functionName: OnEventFx
-    data: 7
+  - time: 2.1666667
+    functionName: OnCharacterDeath
+    data: 
     objectReferenceParameter: {fileID: 1102438429193484, guid: 314018a3b8ebad24eaacd55d94c68fde,
       type: 3}
     floatParameter: 0

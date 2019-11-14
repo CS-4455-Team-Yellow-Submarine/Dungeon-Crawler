@@ -37,7 +37,7 @@ public class Room : MonoBehaviour
 			if(torch != null){
 				GameObject i_torch = Instantiate(torch) as GameObject;
 				i_torch.transform.parent = wall.transform;
-				i_torch.transform.localPosition = new Vector3(Random.Range(-3f, 3f), Random.Range(2.9f, 3.5f), -0.05f);
+				i_torch.transform.localPosition = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(2.9f, 3.5f), -0.05f);
 			}
 			// Find each of the blocking doors
 			Transform tf = wall.transform.Find("frontDoor");

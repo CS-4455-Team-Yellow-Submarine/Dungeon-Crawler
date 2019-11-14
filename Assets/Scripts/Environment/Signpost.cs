@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Signpost : MonoBehaviour
 {
-	public GameObject messagePanel;
 	public string[] messageLines;
 
     // Start is called before the first frame update
@@ -23,19 +22,19 @@ public class Signpost : MonoBehaviour
 	void OnTriggerEnter(Collider col){
 		// Display the message to the player
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player") && col.attachedRigidbody.gameObject.tag.Equals("Character")){
-			messagePanel.SetActive(true);
+			Globals.getSignpostPanel().SetActive(true);
 			string displayMessage = "";
 			foreach(string s in messageLines){
 				displayMessage = displayMessage + s + "\n";
 			}
-			GameObject.Find("Sign_Message").GetComponent<Text>().text = displayMessage;
+			Globals.getSignpostPanel().transform.GetChild(0).GetComponent<Text>().text = displayMessage;
 		}
 	}
 
 	void OnTriggerExit(Collider col){
 		// Hide message from the player
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player") && col.attachedRigidbody.gameObject.tag.Equals("Character")){
-			messagePanel.SetActive(false);
+			Globals.getSignpostPanel().SetActive(false);
 		}
 	}
 }

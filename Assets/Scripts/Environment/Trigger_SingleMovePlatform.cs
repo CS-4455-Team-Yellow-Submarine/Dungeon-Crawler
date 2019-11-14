@@ -23,6 +23,8 @@ public class Trigger_SingleMovePlatform : TriggeredObject
 		for(int i = 0; i < checkpointCount; i++){
 			ticksToReach[i] = checkpoints[i].GetMoveTime();
 		}
+		itemsToMove = new List<GameObject>();
+		itemOffsets = new List<Vector3>();
 	}
 
 	void FixedUpdate(){

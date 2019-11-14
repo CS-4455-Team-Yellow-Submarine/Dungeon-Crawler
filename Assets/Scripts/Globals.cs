@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour
 {
+	public GameObject panelForSignposts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +27,10 @@ public class Globals : MonoBehaviour
 		// Report this as the most recent valid tile the player stepped on
 		PlayerCharacter pc = obj.GetComponent<PlayerCharacter>() as PlayerCharacter;
 		pc.ReturnToLastValidTile();
+	}
+
+	public static GameObject getSignpostPanel(){
+		GameObject panel = GameObject.Find("BottomOfMap").GetComponent<Globals>().panelForSignposts;
+		return panel;
 	}
 }

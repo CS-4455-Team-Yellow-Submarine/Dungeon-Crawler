@@ -32,6 +32,7 @@ public class NewKnightController : MonoBehaviour
 
     void Movement()
     {
+		if(anim.GetBool("isDead")) return; // We're dead, don't do anything.
 		rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
 		forward = Quaternion.Euler(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0) * forward;
 		forward = forward.normalized;
