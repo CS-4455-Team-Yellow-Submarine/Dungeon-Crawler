@@ -111,16 +111,24 @@ public class PlayerCharacter : Character
 		pr.Define(GetComponent<Rigidbody>(), transform.position + Vector3.up, null);
 		// Override the direction of this projectile
 		pr.SetMoveDirection(forward);
+		// Set the damage of the projectile
+		pr.damage = attackDamage;
 	}
 
 	new void OnCharacterDeath(){
 		GameObject.Find("SystemMessage").GetComponent<Text>().text = "You have died...";
 		Time.timeScale = 0f;
-		SceneManager.LoadScene("LoseScene");
+		if(SceneManager.GetActiveScene().name.Equals("TutorialScene"))
+			SceneManager.LoadScene("LoseScene");
+		else
+			SceneManager.LoadScene("LoseScene2");
 	}
 
 	private void GoToStartMenu(){
-		SceneManager.LoadScene("StartScene");
+		if(SceneManager.GetActiveScene().name.Equals("TutorialScene"))
+			SceneManager.LoadScene("StartScene");
+		else
+			SceneManager.LoadScene("StartScene2");
 	}
 
 	public void DoInteract(){

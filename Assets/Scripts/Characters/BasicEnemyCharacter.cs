@@ -49,15 +49,17 @@ public class BasicEnemyCharacter : Character
 		checkpoints = new List<Vector3>();
 		ticksToReach = new List<int>();
 		// Get the list of checkpoints
-		Transform movingPoints = transform.Find("Movepoints").gameObject.transform;
-		int numChildren = movingPoints.childCount;
-		for(int i = 0; i < numChildren; ++i){
-			// Get each checkpoint
-			GameObject goalPoint = movingPoints.GetChild(i).gameObject;
-			Checkpoint cp = goalPoint.GetComponent(typeof(Checkpoint)) as Checkpoint;
-			if(cp != null){
-				checkpoints.Add(goalPoint.transform.position);
-				ticksToReach.Add(cp.GetMoveTime());
+		if(transform.Find("Movepoints") != null){
+			Transform movingPoints = transform.Find("Movepoints").gameObject.transform;
+			int numChildren = movingPoints.childCount;
+			for(int i = 0; i < numChildren; ++i){
+				// Get each checkpoint
+				GameObject goalPoint = movingPoints.GetChild(i).gameObject;
+				Checkpoint cp = goalPoint.GetComponent(typeof(Checkpoint)) as Checkpoint;
+				if(cp != null){
+					checkpoints.Add(goalPoint.transform.position);
+					ticksToReach.Add(cp.GetMoveTime());
+				}
 			}
 		}
 
@@ -76,7 +78,8 @@ public class BasicEnemyCharacter : Character
 	{
 		base.FixedUpdate();
 		// Update state machine
-		stateMachine.Update();
+		if(stateMachine != null)
+			stateMachine.Update();
 
 		if(health <= 0){
 			GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = 0;
@@ -189,7 +192,7 @@ public class BasicEnemyCharacter : Character
 	// Used for updating the health info
 	new public void TakeDamage(int amount){
 		base.TakeDamage(amount);
-		GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = health;
+		GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = (int)(health * 100f / (float)(maxHealth));
 		GameObject.Find("Enemy_Health").GetComponent<Text>().text = unitName;
 	}
 }

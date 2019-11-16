@@ -67,12 +67,23 @@ public abstract class Character : MonoBehaviour
 
 	// Function to handle when we die
 	protected virtual void HandleDeadState(){
-		GetComponent<Animator>().SetBool("isDead", true);
+		// Check if a dead animation exists or not
+		bool hasDeadAnim = false;
+		foreach (AnimatorControllerParameter param in GetComponent<Animator>().parameters){
+			if (param.name == "isDead")
+				hasDeadAnim = true;
+		}
+		if(hasDeadAnim)
+			GetComponent<Animator>().SetBool("isDead", true);
+		else{
+			OnCharacterDeath();
+		}
 	}
 
-	// After death animation
+	// After death animation - add explosion or something
 	public virtual void OnCharacterDeath(){
-		Destroy(this.gameObject);
+		Globals.MakeExplosion(this.transform.position);
+		Destroy(transform.parent.gameObject);
 	}
 
 	// Function to handle a heal

@@ -22979,7 +22979,7 @@ PrefabInstance:
     - target: {fileID: 4795392751968358538, guid: ba04b12d98ec53148a9460b8b05d4084,
         type: 3}
       propertyPath: messageLines.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4795392751968358538, guid: ba04b12d98ec53148a9460b8b05d4084,
         type: 3}

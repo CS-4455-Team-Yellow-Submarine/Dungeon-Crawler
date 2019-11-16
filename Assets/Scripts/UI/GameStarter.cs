@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameStarter : MonoBehaviour
 {
+	public string sceneOnStart = "TutorialScene";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,6 @@ public class GameStarter : MonoBehaviour
     public void StartGame()
     {
 		Time.timeScale = 1f;
-        SceneManager.LoadScene("DemoScene");
+		SceneManager.LoadScene(sceneOnStart);
     }
 }

@@ -72,6 +72,7 @@ public class State_Patrol : FSM_State{
 	}
 
 	public void Execute(){
+		if(numCheckpoints == 0) return;
 		// Check if we should go to next checkpoint
 		if(ticksLeft == 0){
 			currentCheckpoint = (currentCheckpoint + 1) % numCheckpoints;
