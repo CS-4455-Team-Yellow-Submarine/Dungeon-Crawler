@@ -48,7 +48,7 @@ public abstract class Character : MonoBehaviour
 	// Function to take damage
 	// amount: Amount of damage to take
 	// cooldown: ticks until the character can take damage again. Default 5 ticks (0.1 seconds)
-	public void TakeDamage(int amount){
+	public virtual void TakeDamage(int amount){
 		if(ticksInvulnerable > 0 || amount == 0) return;
 		// Now we can take damage
 		health -= amount;
