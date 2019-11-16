@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29557dd5005615f7b5ccb4ea4caced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneOnStart: TutorialScene
 --- !u!114 &294519679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,7 +1769,7 @@ PrefabInstance:
     - target: {fileID: 5471947012728828892, guid: 920741caa5354734492a964b7211b2b3,
         type: 3}
       propertyPath: blockBack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 920741caa5354734492a964b7211b2b3, type: 3}
@@ -2150,6 +2151,7 @@ MonoBehaviour:
   panelForSignposts: {fileID: 2026426154}
   defaultExplosion: {fileID: 8201861305765748558, guid: e7d96a69d53db0d46b027d80180c4245,
     type: 3}
+  sceneOnExitTutorial: MainGameScene
 --- !u!64 &1072366187
 MeshCollider:
   m_ObjectHideFlags: 0

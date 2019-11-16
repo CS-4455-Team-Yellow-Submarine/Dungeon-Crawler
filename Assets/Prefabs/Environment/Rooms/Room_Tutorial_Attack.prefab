@@ -3475,7 +3475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6880647085410523027}
   m_Layer: 0
-  m_Name: frontDoor
+  m_Name: rightDoor
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6619,7 +6619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717479646824039058}
   m_Layer: 0
-  m_Name: frontDoor
+  m_Name: leftDoor
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7301,7 +7301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4522880596941029285}
   m_Layer: 0
-  m_Name: frontDoor
+  m_Name: backDoor
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
