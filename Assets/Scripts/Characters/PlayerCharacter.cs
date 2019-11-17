@@ -80,8 +80,8 @@ public class PlayerCharacter : Character
 		GetComponent<CharacterController>().enabled = (false);
 		transform.position = lastValidTile.transform.position + Vector3.up;
 		GetComponent<CharacterController>().enabled = (true);
-		//int damageToTake = health / 5; // Lose 20% of Health
-		int damageToTake = 40;
+		int damageToTake = health / 5; // Lose 20% of Health or 10 health
+		if(damageToTake < 10) damageToTake = 10;
 		TakeDamage(damageToTake);
 	}
 

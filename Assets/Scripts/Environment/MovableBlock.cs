@@ -61,7 +61,7 @@ public class MovableBlock : Ground
 		// Move items stuck on top of this thing
 		int objectCount = itemsToMove.Count;
 		for(int i = 0; i < objectCount; ++i){
-			itemsToMove[i].transform.position = transform.position + itemOffsets[i];
+			//itemsToMove[i].transform.position = transform.position + itemOffsets[i];
 		}
 	}
 

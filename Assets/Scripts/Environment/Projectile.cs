@@ -36,15 +36,18 @@ public class Projectile : MonoBehaviour
 		moveSpeed = spd;
 		attackRange = range;
 		// Melee or ranged projectile?
-		if(moveSpeed < 0.001f){
+		if(moveSpeed < 0.01f){
 			moveTime = 40; // Melee, just have it hit target after 0.8 seconds
 		}
 		else{ // Otherwise, calculate how long it'll take to reach target (for destruction)
-			moveTime = (int)((target.transform.position - source).magnitude / moveSpeed * 50f);
+			if(target != null)
+				moveTime = (int)((target.transform.position - source).magnitude / moveSpeed * 50f);
+			else
+				moveTime = (int) (50f * attackRange / moveSpeed);
 		}
 		if(target != null)
 			moveVec = (target.transform.position - source) / moveTime;
-		if(moveSpeed < 0.001f){
+		if(moveSpeed < 0.01f){
 			moveVec = moveVec.normalized * attackRange;
 		}
 		// Ignore collisions between this projectile and the source
@@ -110,8 +113,12 @@ public class Projectile : MonoBehaviour
 	}
 
 	// Override the projectile direction
-	public void SetMoveDirection(Vector3 dir){
-		moveVec = dir;
+	public void SetMoveDirection(Vector3 dir, float spd = 0f, float range = 1.2f){
+		if(spd < 0.01f)
+			moveVec = dir;
+		else{
+			moveVec = dir.normalized * 0.5f * range / spd;
+		}
 	}
 
 	// Any optional things to do when this projectile should die
