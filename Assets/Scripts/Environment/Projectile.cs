@@ -85,6 +85,9 @@ public class Projectile : MonoBehaviour
 	}*/
 
 	void OnTriggerEnter(Collider col){
+		// Check if this is a wall
+		if(col.tag.Equals("Wall"))
+			HandleDead();
 		// Check if there is a rigidbody attached
 		if(col.attachedRigidbody == null) return;
 		// Check to make sure it's not the source

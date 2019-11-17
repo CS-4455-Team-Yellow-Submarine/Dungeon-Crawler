@@ -16,6 +16,7 @@ public class Room : MonoBehaviour
 	private int messageDisplayTicks = -1;
 	private bool displayedMessage = false;
 	static string lastMessageFromRoom;
+	public bool addTorches = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class Room : MonoBehaviour
 		float minX = 9999f, maxX = -9999f, minZ = 9999f, maxZ = -9999f;
 		// The blocking tiles, in case we do need to block
 		GameObject frontDoor = null, rightDoor = null, backDoor = null, leftDoor = null;
+		GameObject[] torches = new GameObject[4];
 		// Iterate through the 4 walls
 		for(int i = 0; i < 4; i++){
 			GameObject wall = wallsCollection.GetChild(i).gameObject;
@@ -34,10 +36,11 @@ public class Room : MonoBehaviour
 			if(wallPos.z > maxZ) maxZ = wallPos.z;
 			if(wallPos.z < minZ) minZ = wallPos.z;
 			// Randomly spawn a torch somewhere along the wall
-			if(torch != null){
+			if(torch != null && addTorches){
 				GameObject i_torch = Instantiate(torch) as GameObject;
 				i_torch.transform.parent = wall.transform;
 				i_torch.transform.localPosition = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(2.9f, 3.5f), -0.05f);
+				torches[i] = i_torch;
 			}
 			// Find each of the blocking doors
 			Transform tf = wall.transform.Find("frontDoor");
@@ -65,6 +68,15 @@ public class Room : MonoBehaviour
 		}
 		// Scale the room's bounding box accordingly
 		GetComponent<BoxCollider>().size = new Vector3(1f + maxX - minX, 10f, 1f + maxZ - minZ);
+		// Remove some torches of room is small
+		if(maxX - minX < 6f && addTorches){
+			for(int i = 1; i < 4; i++){
+				torches[i].SetActive(false);
+			}
+		} else if(maxX - minX < 11f && addTorches){
+			torches[1].SetActive(false);
+			torches[3].SetActive(false);
+		}
 		// Determine if we should seal the room or not
 		if(blockFront && frontDoor != null)
 			frontDoor.SetActive(true);
