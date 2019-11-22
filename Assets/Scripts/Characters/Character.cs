@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Add different character types here
 public enum CHARACTER_TYPE{Player, Monster, NPC};
@@ -54,6 +55,8 @@ public abstract class Character : MonoBehaviour
 		health -= amount;
 		tookDamage = true;
 		GetComponent<AudioSource>().Play();
+		GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = (int)(health * 100f / (float)(maxHealth));
+		GameObject.Find("Enemy_Health").GetComponent<Text>().text = unitName;
 	}
 
 	// Function to handle when damage is taken

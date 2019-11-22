@@ -1074,7 +1074,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240518134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 12}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 712068579}
@@ -1523,7 +1523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337823823}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 12}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 1671944537}
@@ -2281,7 +2281,7 @@ PrefabInstance:
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
       propertyPath: LightsModule.intensityCurve.scalar
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
@@ -2301,7 +2301,7 @@ PrefabInstance:
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
       propertyPath: LightsModule.maxLights
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
@@ -3374,7 +3374,7 @@ PrefabInstance:
     - target: {fileID: 5471947012728828882, guid: 3a03e32b55e9a0241a06f302a923e037,
         type: 3}
       propertyPath: m_Name
-      value: Room_Boss_TODO
+      value: Room_Boss_A
       objectReference: {fileID: 0}
     - target: {fileID: 5471947012728828893, guid: 3a03e32b55e9a0241a06f302a923e037,
         type: 3}
@@ -3430,6 +3430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560836954842387727, guid: 3a03e32b55e9a0241a06f302a923e037,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Monster_A
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a03e32b55e9a0241a06f302a923e037, type: 3}
@@ -3841,7 +3846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986201424}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -5, y: 6.5, z: 67}
+  m_LocalPosition: {x: -5, y: 6.5, z: 64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1006165139}
@@ -6477,7 +6482,7 @@ PrefabInstance:
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
       propertyPath: LightsModule.intensityCurve.scalar
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
@@ -6497,7 +6502,7 @@ PrefabInstance:
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}
       propertyPath: LightsModule.maxLights
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8384564103392056938, guid: 0e527b32123761342a8b9568aba19d73,
         type: 3}

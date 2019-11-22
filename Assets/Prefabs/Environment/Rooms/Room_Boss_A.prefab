@@ -12708,7 +12708,7 @@ GameObject:
   - component: {fileID: 5471947012728828883}
   - component: {fileID: 5471947012728828892}
   m_Layer: 0
-  m_Name: Room_Boss_TODO
+  m_Name: Room_Boss_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12758,12 +12758,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torch: {fileID: 8384564103066103729, guid: 0e527b32123761342a8b9568aba19d73, type: 3}
-  roomType: 0
+  roomType: 1
   blockFront: 0
-  blockRight: 0
-  blockBack: 0
-  blockLeft: 0
-  entryMessage: There was supposed to be a boss here, but we haven't finished yet.
+  blockRight: 1
+  blockBack: 1
+  blockLeft: 1
+  entryMessage: Did you know the boulders can block fireballs?
   repeatMessage: 0
   addTorches: 0
 --- !u!1 &5471947013359186119
@@ -22924,6 +22924,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boulder_D (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7936307196414624363, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 7936307196414624362, guid: 443c6c33e54ace644aed79cc4fed241b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22979,6 +22984,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: -6104819883441850625, guid: 443c6c33e54ace644aed79cc4fed241b,
         type: 3}
       propertyPath: m_Enabled
@@ -23003,6 +23023,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boulder_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090098906683260006, guid: 203f6403519398448bd09899362ea04c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 9090098906683260007, guid: 203f6403519398448bd09899362ea04c,
         type: 3}
@@ -23059,6 +23084,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5320816030244634944, guid: 203f6403519398448bd09899362ea04c,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320816030244634944, guid: 203f6403519398448bd09899362ea04c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320816030244634944, guid: 203f6403519398448bd09899362ea04c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: -5465377513916034219, guid: 203f6403519398448bd09899362ea04c,
         type: 3}
       propertyPath: m_Enabled
@@ -23083,6 +23123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boulder_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153426687178212107, guid: f1312dd8e4069a1449f530ebc93a2833,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 4153426687178212106, guid: f1312dd8e4069a1449f530ebc93a2833,
         type: 3}
@@ -23139,6 +23184,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6232763347168348980, guid: f1312dd8e4069a1449f530ebc93a2833,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232763347168348980, guid: f1312dd8e4069a1449f530ebc93a2833,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232763347168348980, guid: f1312dd8e4069a1449f530ebc93a2833,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 4970313138194034482, guid: f1312dd8e4069a1449f530ebc93a2833,
         type: 3}
       propertyPath: m_Enabled
@@ -23162,7 +23222,7 @@ PrefabInstance:
     - target: {fileID: 8156207660164915449, guid: ac1679781caeb534aac8ad5cdc862972,
         type: 3}
       propertyPath: m_Name
-      value: Boss_Monster_TODO
+      value: Boss_Monster_A
       objectReference: {fileID: 0}
     - target: {fileID: 8047716541819367902, guid: ac1679781caeb534aac8ad5cdc862972,
         type: 3}
@@ -23219,6 +23279,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4486406602103457262, guid: ac1679781caeb534aac8ad5cdc862972,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486406602103457262, guid: ac1679781caeb534aac8ad5cdc862972,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac1679781caeb534aac8ad5cdc862972, type: 3}
 --- !u!4 &3455723750226936872 stripped
@@ -23238,6 +23308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boulder_D
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936307196414624363, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 7936307196414624362, guid: 443c6c33e54ace644aed79cc4fed241b,
         type: 3}
@@ -23293,6 +23368,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7490977156071251660, guid: 443c6c33e54ace644aed79cc4fed241b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: -6104819883441850625, guid: 443c6c33e54ace644aed79cc4fed241b,
         type: 3}
