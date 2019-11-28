@@ -73,6 +73,7 @@ public class MovableBlock : Ground
 		if(index == -1){
 			itemsToMove.Add(obj);
 			itemOffsets.Add(obj.transform.position - transform.position);
+			//col.gameObject.transform.parent = transform;
 		} else{
 			itemOffsets[index] = obj.transform.position - transform.position;
 		}
@@ -87,6 +88,7 @@ public class MovableBlock : Ground
 		else{
 			itemsToMove.RemoveAt(index);
 			itemOffsets.RemoveAt(index);
+			//col.gameObject.transform.parent = null;
 		}
 	}
 

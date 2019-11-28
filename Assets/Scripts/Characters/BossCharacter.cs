@@ -60,7 +60,8 @@ public class BossCharacter : Character
 			// Set the damage of the projectile
 			pr.damage = attackDamage;
 		} else{
-			Vector3 rightSide = (Quaternion.Euler(0, 90, 0) * transform.rotation).eulerAngles.normalized;
+			Vector3 rightSide = -transform.right;
+			//Vector3 rightSide = (Quaternion.Euler(0, 90, 0) * transform.rotation).eulerAngles.normalized;
 			for(int i = 0; i < 7; i++){
 				GameObject obj = Object.Instantiate(projectile, transform.position + rightSide * (-4.5f + 1.5f * i), Quaternion.identity) as GameObject;
 				Projectile pr = obj.GetComponent<Projectile>();

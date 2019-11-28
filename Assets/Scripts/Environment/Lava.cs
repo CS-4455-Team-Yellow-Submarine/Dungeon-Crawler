@@ -27,6 +27,8 @@ public class Lava : Ground
 	// Damage whatever enters here
 	void OnTriggerEnter(Collider col){
 		if(attack_cooldown > 0) return;
+		// Check if collider is trigger
+		if(col.isTrigger) return;
 		// Check if there is a rigidbody attached
 		if(col.attachedRigidbody == null) return;
 		// Check if it's something that can be damaged
@@ -47,6 +49,8 @@ public class Lava : Ground
 	// Continue damaging whatever is in here
 	void OnTriggerStay(Collider col){
 		if(attack_cooldown > 0) return;
+		// Check if collider is trigger
+		if(col.isTrigger) return;
 		// Check if there is a rigidbody attached
 		if(col.attachedRigidbody == null) return;
 		// Check if it's something that can be damaged

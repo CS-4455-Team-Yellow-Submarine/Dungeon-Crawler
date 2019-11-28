@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 // Finite state machine basic definitions
 public interface FSM_State{
@@ -55,6 +56,7 @@ public class FSM{
 // Patrolling state
 public class State_Patrol : FSM_State{
 	private BasicEnemyCharacter enemy;
+	private NavMeshAgent navAgent;
 	private Animator anim;
 	private List<Vector3> checkpoints;
 	private List<int> ticksToReach;
@@ -74,6 +76,12 @@ public class State_Patrol : FSM_State{
 	public void Execute(){
 		if(numCheckpoints == 0) return;
 		// Check if we should go to next checkpoint
+		if(navAgent.remainingDistance < 0.3f && !navAgent.pathPending && ticksLeft <= 0){
+			currentCheckpoint = (currentCheckpoint + 1) % numCheckpoints;
+			ticksLeft = ticksToReach[currentCheckpoint];
+			navAgent.SetDestination(checkpoints[currentCheckpoint]);
+		}
+		/*
 		if(ticksLeft == 0){
 			currentCheckpoint = (currentCheckpoint + 1) % numCheckpoints;
 			moveVec = (checkpoints[currentCheckpoint] - enemy.GetPosition()) / ticksToReach[currentCheckpoint];
@@ -83,11 +91,17 @@ public class State_Patrol : FSM_State{
 				enemy.SetRotation(quat);
 			}
 		}
+		*/
 		// Move
 		--ticksLeft;
-		enemy.HandleMove(moveVec);
+		/*enemy.HandleMove(moveVec);
 		// Set the animation accordingly
 		if(moveVec.magnitude < 0.02f)
+			anim.SetFloat("velocity", 0f);
+		else
+			anim.SetFloat("velocity", 1f);
+			*/
+		if(navAgent.velocity.magnitude < 0.02f)
 			anim.SetFloat("velocity", 0f);
 		else
 			anim.SetFloat("velocity", 1f);
@@ -107,6 +121,10 @@ public class State_Patrol : FSM_State{
 		this.anim = an;
 	}
 
+	public void SetNavAgent(NavMeshAgent ag){
+		this.navAgent = ag;
+	}
+
 	override public string ToString(){ return "Patrol"; }
 }
 
@@ -114,6 +132,7 @@ public class State_Patrol : FSM_State{
 public class State_Chase : FSM_State{
 	private BasicEnemyCharacter enemy;
 	private Animator anim;
+	private NavMeshAgent navAgent;
 	private GameObject target;
 	private float moveSpeed;
 	private Vector3 moveVec;
@@ -134,15 +153,23 @@ public class State_Chase : FSM_State{
 		this.anim = an;
 	}
 
+	public void SetNavAgent(NavMeshAgent ag){
+		this.navAgent = ag;
+	}
+
 	public void Start(){
 	}
 
 	public void Execute(){
 		// Chase after the player
+		navAgent.SetDestination(target.transform.position);
+		anim.SetFloat("velocity", 1f);
+		/*
 		moveVec = (target.transform.position - enemy.GetPosition()).normalized;
 		enemy.SetRotation(Quaternion.LookRotation(moveVec));
 		enemy.HandleMove(moveVec * moveSpeed / 50f);
 		anim.SetFloat("velocity", 0.6f);
+		*/
 	}
 
 	public void End(){

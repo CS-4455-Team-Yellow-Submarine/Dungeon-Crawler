@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(ConeCollider), typeof(CapsuleCollider), typeof(Animator))]
 public class BasicEnemyCharacter : Character
 {
 	// Private controllers
 	private Animator anim;
 	private ConeCollider visionRange;
 	private CapsuleCollider attackCollider;
+	private NavMeshAgent navAgent;
 
 	// Other variables
 	private FSM stateMachine;
@@ -38,6 +39,9 @@ public class BasicEnemyCharacter : Character
 		attackCollider = GetComponent<CapsuleCollider>();
 		if(attackCollider == null)
 			Debug.Log("Could not find capsule collider");
+		navAgent = GetComponent<NavMeshAgent>();
+		if(navAgent == null)
+			Debug.Log("Could not find nav mesh agent");
 		// Set the attack capsule's range
 		attackCollider.radius = attackRange;
 		attackCollider.isTrigger = true;
@@ -67,6 +71,7 @@ public class BasicEnemyCharacter : Character
 		stateMachine = new FSM();
 		State_Patrol state = new State_Patrol(this);
 		state.SetAnimator(anim);
+		state.SetNavAgent(navAgent);
 		state.SetPatrolPoints(checkpoints, ticksToReach);
 		state.currentCheckpoint = -1;
 
@@ -98,6 +103,7 @@ public class BasicEnemyCharacter : Character
 				State_Chase state = new State_Chase(this);
 				state.SetAnimator(anim);
 				state.SetSpeed(moveSpeed);
+				state.SetNavAgent(navAgent);
 				state.SetChaseTarget(col.attachedRigidbody.gameObject);
 
 				stateMachine.SetState(state);
@@ -121,29 +127,6 @@ public class BasicEnemyCharacter : Character
 		}
 	}
 
-	/*
-	void OnTriggerStay(Collider col){
-		// Check if it was the player
-		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
-			// Check the state
-			if(stateMachine.GetStateName().Equals("Attack") || stateMachine.GetStateName().Equals("Chase")){
-				playerInRange = true;
-				// Change to attack state if we're not already there
-				if(!stateMachine.GetStateName().Equals("Attack")){
-					State_Attack state = new State_Attack(this);
-					state.SetAnimator(anim);
-					state.SetTarget(transform.position + (col.attachedRigidbody.gameObject.transform.position - transform.position).normalized * attackRange);
-					state.SetAttackDelay(attackDelay);
-					state.SetAttackCooldown(attackCooldown);
-					state.SetProjectile(projectile, attackDamage);
-
-					stateMachine.SetState(state);
-				}
-			}
-		}
-	}
-	*/
-
 	void OnTriggerExit(Collider col){
 		// Check if it was the player
 		if(col.attachedRigidbody && col.attachedRigidbody.gameObject.name.Equals("Player")){
@@ -154,6 +137,7 @@ public class BasicEnemyCharacter : Character
 				State_Chase state = new State_Chase(this);
 				state.SetAnimator(anim);
 				state.SetSpeed(moveSpeed);
+				state.SetNavAgent(navAgent);
 				state.SetChaseTarget(col.attachedRigidbody.gameObject);
 
 				stateMachine.SetState(state);
@@ -184,6 +168,7 @@ public class BasicEnemyCharacter : Character
 		State_Patrol state = new State_Patrol(this);
 		state.SetAnimator(anim);
 		state.SetPatrolPoints(checkpoints, ticksToReach);
+		state.SetNavAgent(navAgent);
 		state.currentCheckpoint = lastCheckpoint;
 
 		stateMachine.SetState(state);

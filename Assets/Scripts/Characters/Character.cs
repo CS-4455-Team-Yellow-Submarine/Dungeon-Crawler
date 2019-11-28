@@ -55,8 +55,10 @@ public abstract class Character : MonoBehaviour
 		health -= amount;
 		tookDamage = true;
 		GetComponent<AudioSource>().Play();
-		GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = (int)(health * 100f / (float)(maxHealth));
-		GameObject.Find("Enemy_Health").GetComponent<Text>().text = unitName;
+		if(!name.Equals("Player")){
+			GameObject.Find("EnemyHealthSlider").GetComponent<Slider>().value = (int)(health * 100f / (float)(maxHealth));
+			GameObject.Find("Enemy_Health").GetComponent<Text>().text = unitName;
+		}
 	}
 
 	// Function to handle when damage is taken
