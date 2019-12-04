@@ -24,6 +24,8 @@ public class PlayerCharacter : Character
     {
 		base.Start();
 		// Initializations
+		if(GameObject.Find("StartLocation") != null)
+			transform.position = GameObject.Find("StartLocation").gameObject.transform.position;
 		objectsInRange = new List<Interactable>();
 		rb = GetComponent<Rigidbody>();
 		healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
@@ -35,8 +37,12 @@ public class PlayerCharacter : Character
 		base.FixedUpdate();
 
 		// INTERACTION INPUT
-		if(Input.GetMouseButtonDown(1) && objectsInRange.Count > 0){
+		if((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftShift)) && objectsInRange.Count > 0){
 			GetComponent<Animator>().SetBool("isInteracting", true);
+		}
+
+		if(transform.position.z > 37){
+			GameObject.Find("StartLocation").GetComponent<DoNotDestroy>().SetCheckpointLocation(new Vector3(0, 5, 38));
 		}
 
 		// Update health bar

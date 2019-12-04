@@ -119,7 +119,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 7a699776fd3d85741ab64a8ab0a34e78, type: 2}
 --- !u!1 &89349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,6 +2568,11 @@ PrefabInstance:
     - target: {fileID: 5471947012728828892, guid: 78a22c53626c9d144ae06167fec1adf6,
         type: 3}
       propertyPath: blockFront
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471947012728828892, guid: 78a22c53626c9d144ae06167fec1adf6,
+        type: 3}
+      propertyPath: repeatMessage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969096528852439967, guid: 78a22c53626c9d144ae06167fec1adf6,
@@ -5373,7 +5378,7 @@ PrefabInstance:
     - target: {fileID: 7880556624635646112, guid: b3b336cede2070a4d928de803cf0e7be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7880556624635646112, guid: b3b336cede2070a4d928de803cf0e7be,
         type: 3}

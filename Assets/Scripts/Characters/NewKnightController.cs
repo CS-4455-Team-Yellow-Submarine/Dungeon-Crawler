@@ -89,7 +89,7 @@ public class NewKnightController : MonoBehaviour
     void GetInput()
     {
 		// On left click: attack
-		if (Input.GetMouseButtonDown (0) & !anim.GetCurrentAnimatorStateInfo(0).IsTag("attacking")){
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftControl)) & !anim.GetCurrentAnimatorStateInfo(0).IsTag("attacking")){
 			anim.SetBool("isAttacking", true);
         }
     }

@@ -1531,6 +1531,11 @@ PrefabInstance:
       propertyPath: blockFront
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471947012728828892, guid: 00c87aeafd0055a4d95c2e4ed5c18e7e,
+        type: 3}
+      propertyPath: entryMessage
+      value: Press the Left Mouse or Left CTRL to attack
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c87aeafd0055a4d95c2e4ed5c18e7e, type: 3}
 --- !u!4 &822177164 stripped
@@ -1771,6 +1776,11 @@ PrefabInstance:
       propertyPath: blockBack
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5471947012728828892, guid: 920741caa5354734492a964b7211b2b3,
+        type: 3}
+      propertyPath: entryMessage
+      value: Press W, A, S, D or arrow keys to move around.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 920741caa5354734492a964b7211b2b3, type: 3}
 --- !u!4 &897360264 stripped
@@ -1779,6 +1789,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 897360263}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &946455847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 946455848}
+  - component: {fileID: 946455849}
+  m_Layer: 0
+  m_Name: StartLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &946455848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946455847}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &946455849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946455847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25abad9d048fb1a40b464b7557e1b1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1021691676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2579,7 +2632,7 @@ PrefabInstance:
     - target: {fileID: 7880556624635646112, guid: b3b336cede2070a4d928de803cf0e7be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7880556624635646112, guid: b3b336cede2070a4d928de803cf0e7be,
         type: 3}
@@ -3134,6 +3187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: blockLeft
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166326705441250420, guid: 2aca36fb38a10654187fa014e58c37dd,
+        type: 3}
+      propertyPath: entryMessage
+      value: Interact with objects like boulders with Right Mouse or Left Shift
       objectReference: {fileID: 0}
     - target: {fileID: 8777033439129553823, guid: 2aca36fb38a10654187fa014e58c37dd,
         type: 3}
