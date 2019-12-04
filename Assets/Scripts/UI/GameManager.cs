@@ -21,9 +21,10 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        youwintext.SetActive(true);
+        //youwintext.SetActive(true);
         Time.timeScale = .5f;
-        Invoke("Reset", resetDelay);
+        SceneManager.LoadScene("WinScene");
+        //Invoke("Reset", resetDelay);
 
     }
 
